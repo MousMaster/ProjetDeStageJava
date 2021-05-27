@@ -23,7 +23,7 @@ public class Jeu extends Observable implements Runnable {
     private MesDalles mesDalles;
     private MesCasesInterdites interdites;
 
-    public Enemi monster;
+    public IA monster;
 
 
     private EntiteStatique[][] grilleEntitesStatiques = new EntiteStatique[SIZE_X][SIZE_Y];
@@ -85,7 +85,7 @@ public class Jeu extends Observable implements Runnable {
 
         heros = new Heros(this, 4, 4);
 
-        monster=new Enemi(this,10,1);
+        monster=new IA(this,10,1);
         monster.setMax(30 );
 
 

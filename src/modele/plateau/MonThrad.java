@@ -23,6 +23,7 @@ public class MonThrad extends Thread{
             if(this.jeu.monster.getDeb()<this.jeu.monster.getMax())
             this.jeu.monster.deplacer();
             this.jeu.monster.setOrientation();
+            this.jeu.monster.detruire();
 
             //this.jeu.monster.detruire();
         } catch (InterruptedException e) {

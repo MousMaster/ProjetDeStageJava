@@ -6,6 +6,10 @@ public class PorteVerouille extends EntiteStatique{
     private int posX,posY;
     private int numPorte;
 
+    public void setOuverte(boolean ouverte) {
+        this.ouverte = ouverte;
+    }
+
     /* Etat porte */
     private boolean ouverte;
 

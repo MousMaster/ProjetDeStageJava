@@ -2,13 +2,15 @@ package modele.plateau;
 
 import Tools.Aleatoire;
 
-public class Enemi extends Heros {
+public class IA extends Heros {
     private Jeu jeu;
     private int max;
     private int deb;
     private boolean visible;
 
+
     private int orientation;
+
 
     private EntiteStatique[][] grilleEntitesStatiques ;
 
@@ -16,7 +18,7 @@ public class Enemi extends Heros {
         this.max = max;
     }
 
-    public Enemi(Jeu _jeu, int _x, int _y) {
+    public IA(Jeu _jeu, int _x, int _y) {
         super(_jeu, _x, _y);
         this.jeu=_jeu;
         this.deb=0;
@@ -82,14 +84,27 @@ public class Enemi extends Heros {
             if(orientation==1)
             {
                 this.setX(this.getX()-1);
-                Thread.sleep(500);
+                Thread.sleep(100);
             }
 
             if(orientation==0)
             {
                 this.setX(this.getX()+1);
-                Thread.sleep(500);
+                Thread.sleep(100);
             }
+
+            if(this.getX()==1)
+            {
+                Aleatoire a =new Aleatoire();
+                this.setY(a.genereNombreBorne(5));
+            }
+
+        if(this.getX()==this.jeu.getSizeX()-6)
+        {
+            Aleatoire a =new Aleatoire();
+            this.setY(a.genereNombreBorne(5));
+        }
+
     }
 /*
     public void detruire()
@@ -111,8 +126,26 @@ public class Enemi extends Heros {
  */
 public void detruire()
 {
-    if(this.deb==this.max){
-        this.visible=false;
+    if (this.jeu.getEntite(this.getX(),this.getY()) instanceof DalleUnique)
+    {
+        ((DalleUnique) this.jeu.getEntite(this.getX(),this.getY())).incendier();
+
+        if(((DalleUnique) this.jeu.getEntite(this.getX(),this.getY())).isInflammee())
+        {
+            Aleatoire a =new Aleatoire();
+            this.setY(a.genereNombreBorne(5));
+        }
+    }
+
+    if (this.jeu.getEntite(this.getX(),this.getY()) instanceof caseVide)
+    {
+        ((caseVide)  this.jeu.getEntite(this.getX(),this.getY())).setAjoute(true);
+
+    }
+
+    if (this.jeu.getEntite(this.getX(),this.getY()) instanceof PorteVerouille)
+    {
+        ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setOuverte(false);
     }
 }
 
