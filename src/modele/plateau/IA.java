@@ -8,6 +8,21 @@ public class IA extends Heros {
     private int deb;
     private boolean visible;
 
+    private int difficulte;
+
+    public int getDifficulte() {
+        return difficulte;
+    }
+
+    private int nombreElementChange;
+
+    public void setNombreElementChange(int nombreElementChange) {
+        this.nombreElementChange = nombreElementChange;
+    }
+
+    public int getNombreElementChange() {
+        return nombreElementChange;
+    }
 
     private int orientation;
 
@@ -103,12 +118,20 @@ public class IA extends Heros {
         {
             Aleatoire a =new Aleatoire();
             this.setY(a.genereNombreBorne(5));
+            difficulte++;
         }
 
     }
-/*
+
     public void detruire()
     {
+        Aleatoire a =new Aleatoire();
+        this.setY(a.genereNombreBorne(5));
+        this.setY(a.genereNombreBorne(this.jeu.getSizeX()-5));
+
+
+
+
         if(this.deb<this.max)
             if (this.jeu.getEntite(this.getX(),this.getY()) instanceof CaseNormale)
         {
@@ -123,12 +146,13 @@ public class IA extends Heros {
             }
     }
 
- */
-public void detruire()
+
+public void changer()
 {
     if (this.jeu.getEntite(this.getX(),this.getY()) instanceof DalleUnique)
     {
         ((DalleUnique) this.jeu.getEntite(this.getX(),this.getY())).incendier();
+        nombreElementChange++;
 
         if(((DalleUnique) this.jeu.getEntite(this.getX(),this.getY())).isInflammee())
         {
@@ -141,12 +165,35 @@ public void detruire()
     {
         ((caseVide)  this.jeu.getEntite(this.getX(),this.getY())).setAjoute(true);
 
+        nombreElementChange++;
+
     }
+
 
     if (this.jeu.getEntite(this.getX(),this.getY()) instanceof PorteVerouille)
     {
         ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setOuverte(false);
+        ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setType(2);
+        ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setBlindage(difficulte);
+
+
+        nombreElementChange++;
     }
+
+
+    /*
+    if(this.jeu.getEntite(this.getX(),this.getY()) instanceof CaseNormale)
+    {
+        if(((CaseNormale) this.jeu.getEntite(this.getX(),this.getY())).isJoueurDessus())
+        {
+            System.out.println("Nombre de clées décrémenté");
+            this.jeu.getHeros().getInventaire().decNombreCle();
+            this.jeu.getHeros().getInventaire().decNombreCle();
+
+        }
+    }
+
+     */
 }
 
 };

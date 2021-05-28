@@ -61,7 +61,7 @@ public class Inventaire {
 
     public void setNombreCle(int nbCle){ this.nombreCle =nbCle;}
 
-    public void decNombreCle(){ this.nombreCle--;}
+    public void decNombreCle(){ if(this.nombreCle>0) this.nombreCle--;}
     public void decNombreCapsules(){ this.nombreCapsule--;}
 
     public void afficheInventaire(){

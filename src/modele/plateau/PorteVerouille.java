@@ -6,6 +6,27 @@ public class PorteVerouille extends EntiteStatique{
     private int posX,posY;
     private int numPorte;
 
+
+    private int type;
+
+    private int blindage;
+
+    public int getBlindage() {
+        return blindage;
+    }
+
+    public void setBlindage(int blindage) {
+        this.blindage = blindage;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     public void setOuverte(boolean ouverte) {
         this.ouverte = ouverte;
     }
@@ -43,6 +64,7 @@ public class PorteVerouille extends EntiteStatique{
     }
 
     public PorteVerouille(Jeu _jeu) { super(_jeu);
+    this.type=0;
     }
 
     public PorteVerouille(Jeu _jeu,int posX,int posY)
@@ -50,6 +72,7 @@ public class PorteVerouille extends EntiteStatique{
         super(_jeu);
         this.posX=posX; this.posY=posY;
         this.ouverte=false;
+        this.blindage=1;
     }
 
     /*Redefinition de traverssable */
@@ -62,20 +85,25 @@ public class PorteVerouille extends EntiteStatique{
     /*Ouvre porte si joueur possede nombre cle suffisant et a proximite */
     public void ouvrir(Heros heros) {
         Voisinage voisin =new Voisinage(jeu.getSizeY());
-        if(heros.getInventaire().getNombreCle()>0)
+
+        if(heros.getInventaire().getNombreCle()>this.blindage)
         {
             if (voisin.voisinJouerPorte(heros, this) && heros.getInventaire().getNombreCle() > 0) {
                             System.out.println("Ouverture porte");
                             System.out.println(" " + this.getNumPorte());
-                            heros.getInventaire().setNombreCapsule(0);
+                            //heros.getInventaire().setNombreCapsule(0);
                             heros.getInventaire().incNombrePiece(2);
-                            heros.getInventaire().decNombreSaut(2);
+                            heros.getInventaire().decNombreSaut(blindage);
+                            if(this.type==2)
+                            {
+                                heros.getInventaire().decNombreCle();
+                            }
                             heros.getInventaire().decNombreCle();
                             this.ouverte = true;
             }
         }else
         {
-            System.out.println("Manque de cle impossible d'ouvrir la porte");
+            System.out.println("Manque de cle Blindage "+blindage+" clees");
         }
     }
 }

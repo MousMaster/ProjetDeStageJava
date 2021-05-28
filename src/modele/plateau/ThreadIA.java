@@ -2,11 +2,11 @@ package modele.plateau;
 
 import Tools.Aleatoire;
 
-public class MonThrad extends Thread{
+public class ThreadIA extends Thread{
 
     private Jeu jeu ;
 
-    MonThrad(Jeu _jeu)
+    ThreadIA(Jeu _jeu)
     {
         this.jeu=_jeu;
         this.jeu.monster.setGrilleEntitesStatiques(this.jeu.getGrilleEntitesStatiques());
@@ -20,12 +20,16 @@ public class MonThrad extends Thread{
 
 
         try {
-            if(this.jeu.monster.getDeb()<this.jeu.monster.getMax())
-            this.jeu.monster.deplacer();
-            this.jeu.monster.setOrientation();
-            this.jeu.monster.detruire();
 
-            //this.jeu.monster.detruire();
+            if(this.jeu.monster.getDeb()<this.jeu.monster.getMax()) {
+
+
+                this.jeu.monster.deplacer();
+                this.jeu.monster.setOrientation();
+                this.jeu.monster.changer();
+            }
+
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

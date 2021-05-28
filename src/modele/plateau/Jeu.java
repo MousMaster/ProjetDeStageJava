@@ -23,7 +23,23 @@ public class Jeu extends Observable implements Runnable {
     private MesDalles mesDalles;
     private MesCasesInterdites interdites;
 
+    public int nombreElments()
+    {
+        return mesDalles.getNomBreDalle()+interdites.getNomBre()+NBRS;
+    }
+
     public IA monster;
+
+    public Mortier[] getMesMortier() {
+        return mesMortier;
+    }
+
+    public Mortier acceesMortier(int i)
+    {
+        return mesMortier[i];
+    }
+
+    private Mortier[] mesMortier;
 
 
     private EntiteStatique[][] grilleEntitesStatiques = new EntiteStatique[SIZE_X][SIZE_Y];
@@ -88,6 +104,16 @@ public class Jeu extends Observable implements Runnable {
         monster=new IA(this,10,1);
         monster.setMax(30 );
 
+        mesMortier =new Mortier[5];
+
+        for(int i=0;i<5;i++)
+        {
+            mesMortier[i]=new Mortier(this);
+            mesMortier[i].setPosX(5+i*2);
+            mesMortier[i].setPosY(3);
+
+        }
+
 
         /*initialise les parametres du joueur */
         heros.getInventaire().setNombreCapsule(1);
@@ -125,7 +151,7 @@ public class Jeu extends Observable implements Runnable {
                 e.printStackTrace();
             }
 
-            MonThrad mon =new MonThrad(this);
+            ThreadIA mon =new ThreadIA(this);
             mon.run();
 
 

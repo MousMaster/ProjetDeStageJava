@@ -50,6 +50,12 @@ public class VueControleur extends JFrame implements Observer {
     private ImageIcon icoMonster;
     private ImageIcon icoCaseVideAjoute;
 
+    private ImageIcon icoPorteBlinde;
+
+    private ImageIcon icoMortier;
+    private ImageIcon icoBalle;
+
+
 
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
@@ -135,6 +141,13 @@ public class VueControleur extends JFrame implements Observer {
         icoMonster = chargerIcone("Images/Monster.png");
         icoCaseVideAjoute = chargerIcone("Images/forbiden.png");
 
+        icoPorteBlinde = chargerIcone("Images/redDoor.png");
+
+        icoMortier = chargerIcone("Images/mortier.png");
+
+        icoBalle= chargerIcone("Images/balle.png");
+
+
 
 
     }
@@ -174,6 +187,8 @@ public class VueControleur extends JFrame implements Observer {
     }
 
 
+
+
     /**
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
@@ -196,6 +211,11 @@ public class VueControleur extends JFrame implements Observer {
                     {
                         tabJLabel[x][y].setIcon(icoPorte);
                     }else
+                        if(((PorteVerouille) e).getType()==2)
+                    {
+                        tabJLabel[x][y].setIcon(icoPorteBlinde);
+                    }
+                    else
                     {
                         tabJLabel[x][y].setIcon(icoPorteNonTraverssable);
                     }
@@ -272,7 +292,16 @@ public class VueControleur extends JFrame implements Observer {
             }
             // Affichage monster
         if(this.jeu.monster.isVisible())
-        tabJLabel[jeu.monster.getX()][jeu.monster.getY()].setIcon(icoMonster);
+     tabJLabel[jeu.monster.getX()][jeu.monster.getY()].setIcon(icoMonster);
+
+        for(int i=0;i<5;i++)
+        {
+            tabJLabel[jeu.acceesMortier(i).getPosX()][jeu.acceesMortier(i).getPosY()].setIcon(icoMortier);
+
+            tabJLabel[jeu.acceesMortier(i).getMaBalle().getX()][jeu.acceesMortier(i).getMaBalle().getY()].setIcon(icoBalle);
+
+
+        }
 
     }
 

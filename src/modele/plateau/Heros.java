@@ -87,6 +87,7 @@ public class Heros {
         } else {
             return "Ouest";
         }
+
     }
 
 
@@ -106,6 +107,9 @@ public class Heros {
         if (traverssable(x + 1, y)) {
                 x++;
             this.setOrientationE();
+
+
+
 
             /*Extension saut + Extenssion limiter nombre saut */
         } else if (ifCaseVide(x + 1, y)) {
@@ -182,6 +186,8 @@ public class Heros {
         }
         if (x >= 0 && x <= jeu.SIZE_X && y > 0 && y <= jeu.SIZE_Y) {
             if (jeu.getEntite(x, y) instanceof caseVide) {
+
+
                 return true;
 
             } else {

@@ -5,6 +5,15 @@ public class CaseNormale extends EntiteStatique {
     int posX,posY;
     boolean traversable;
 
+    private boolean joueurDessus;
+
+    public boolean isJoueurDessus() {
+        return joueurDessus;
+    }
+
+    public void setJoueurDessus(boolean joueurDessus) {
+        this.joueurDessus = joueurDessus;
+    }
 
     public int getPosX() {
         return posX;
@@ -29,6 +38,7 @@ public class CaseNormale extends EntiteStatique {
         super(_jeu);
         this.posX=px;
         this.posY=py;
+
     }
 
 
