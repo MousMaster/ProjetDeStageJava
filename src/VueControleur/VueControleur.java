@@ -296,9 +296,9 @@ public class VueControleur extends JFrame implements Observer {
 
         for(int i=0;i<5;i++)
         {
-            tabJLabel[jeu.acceesMortier(i).getPosX()][jeu.acceesMortier(i).getPosY()].setIcon(icoMortier);
+            //tabJLabel[jeu.acceesMortier(i).getPosX()][jeu.acceesMortier(i).getPosY()].setIcon(icoMortier);
 
-            tabJLabel[jeu.acceesMortier(i).getMaBalle().getX()][jeu.acceesMortier(i).getMaBalle().getY()].setIcon(icoBalle);
+            //tabJLabel[jeu.acceesMortier(i).getMaBalle().getX()][jeu.acceesMortier(i).getMaBalle().getY()].setIcon(icoBalle);
 
 
         }

@@ -13,6 +13,7 @@ public class ThreadIA extends Thread{
     }
 
     public void run() {
+
         // do something in a new thread if 'called' by super.start()
         Aleatoire a =new Aleatoire();
 
@@ -21,13 +22,21 @@ public class ThreadIA extends Thread{
 
         try {
 
-            if(this.jeu.monster.getDeb()<this.jeu.monster.getMax()) {
+            if(this.jeu.monster.getDeb()<jeu.nombreElments()) {
+                jeu.monster.setPhase_1(true);
+                jeu.monster.setPhase_2(false);
 
-
-                this.jeu.monster.deplacer();
-                this.jeu.monster.setOrientation();
-                this.jeu.monster.changer();
+            }else
+            {
+                jeu.monster.setPhase_2(true);
+                jeu.monster.setPhase_1(false);
             }
+
+            this.jeu.monster.deplacer();
+            this.jeu.monster.setOrientation();
+            this.jeu.monster.changer();
+
+            System.out.println("Le nombre de modif : "+this.jeu.monster.getDeb()+" ");
 
 
         } catch (InterruptedException e) {

@@ -4,41 +4,52 @@ import Tools.Aleatoire;
 
 public class IA extends Heros {
     private Jeu jeu;
-    private int max;
-    private int deb;
+
+    private  int NOMBRE_CHANGEMENT_MAX;
+
     private boolean visible;
 
-    private int difficulte;
+    private boolean phase_1;
+    private boolean phase_2;
 
-    public int getDifficulte() {
-        return difficulte;
+    private int temps_pause;
+
+    public boolean isPhase_1() {
+        return phase_1;
     }
+
+    public void setPhase_1(boolean phase_1) {
+        this.phase_1 = phase_1;
+    }
+
+    public boolean isPhase_2() {
+        return phase_2;
+    }
+
+    public void setPhase_2(boolean phase_2) {
+        this.phase_2 = phase_2;
+    }
+
+    private int blindage_porte;
+
 
     private int nombreElementChange;
 
-    public void setNombreElementChange(int nombreElementChange) {
-        this.nombreElementChange = nombreElementChange;
-    }
 
-    public int getNombreElementChange() {
-        return nombreElementChange;
-    }
 
     private int orientation;
 
 
     private EntiteStatique[][] grilleEntitesStatiques ;
 
-    public void setMax(int max) {
-        this.max = max;
-    }
+
 
     public IA(Jeu _jeu, int _x, int _y) {
         super(_jeu, _x, _y);
         this.jeu=_jeu;
-        this.deb=0;
         this.visible=true;
         this.orientation=1;
+        this.NOMBRE_CHANGEMENT_MAX=jeu.getSizeX()*jeu.getSizeY()/3;
     }
 
     public boolean isVisible() {
@@ -46,7 +57,7 @@ public class IA extends Heros {
     }
 
     public int getDeb() {
-        return deb;
+        return nombreElementChange;
     }
 
     @Override
@@ -66,22 +77,8 @@ public class IA extends Heros {
         this.grilleEntitesStatiques = grilleEntitesStatiques;
     }
 
-    public int getMax() {
-        return max;
-    }
-/*
-    public void deplacer() throws InterruptedException {
 
-        if(this.deb<this.max)
-        {
-            Aleatoire a =new Aleatoire();
-            this.jeu.monster.setY(a.genereNombreBorne(this.jeu.getSizeY()-1));
-            this.jeu.monster.setX(a.genereNombreBorne(jeu.getSizeX()-5));
-            Thread.sleep(500);
-        }
-    }
 
- */
 
     public void setOrientation() {
         if(this.getX()==this.jeu.getSizeX()-1)
@@ -96,10 +93,21 @@ public class IA extends Heros {
     }
 
     public void deplacer() throws InterruptedException {
+
+        if(phase_1)
+        {
+            temps_pause=100;
+        }else
+        {
+            temps_pause=200;
+        }
+
+        if(phase_1)
+        {
             if(orientation==1)
             {
                 this.setX(this.getX()-1);
-                Thread.sleep(100);
+                Thread.sleep(temps_pause);
             }
 
             if(orientation==0)
@@ -114,86 +122,83 @@ public class IA extends Heros {
                 this.setY(a.genereNombreBorne(5));
             }
 
-        if(this.getX()==this.jeu.getSizeX()-6)
-        {
-            Aleatoire a =new Aleatoire();
-            this.setY(a.genereNombreBorne(5));
-            difficulte++;
-        }
-
-    }
-
-    public void detruire()
-    {
-        Aleatoire a =new Aleatoire();
-        this.setY(a.genereNombreBorne(5));
-        this.setY(a.genereNombreBorne(this.jeu.getSizeX()-5));
-
-
-
-
-        if(this.deb<this.max)
-            if (this.jeu.getEntite(this.getX(),this.getY()) instanceof CaseNormale)
-        {
-            caseVide macCase =new caseVide(this.jeu);
-            grilleEntitesStatiques[this.getX()][this.getY()]=macCase;
-            macCase.setAjoute(true);
-            this.deb++;
-
-        }
-            if(this.deb==this.max){
-                this.visible=false;
+            if(this.getX()==this.jeu.getSizeX()-6)
+            {
+                Aleatoire a =new Aleatoire();
+                this.setY(a.genereNombreBorne(5));
+                if(blindage_porte <4)
+                {
+                    blindage_porte++;
+                }
             }
+
+        }
+
+        if(phase_2)
+        {
+                Aleatoire a =new Aleatoire();
+                this.setY(a.genereNombreBorne(5));
+                this.setX(a.genereNombreBorne(jeu.getSizeX()-10));
+                Thread.sleep(temps_pause);
+        }
+
     }
+
 
 
 public void changer()
 {
-    if (this.jeu.getEntite(this.getX(),this.getY()) instanceof DalleUnique)
+    if(phase_1)
     {
-        ((DalleUnique) this.jeu.getEntite(this.getX(),this.getY())).incendier();
-        nombreElementChange++;
-
-        if(((DalleUnique) this.jeu.getEntite(this.getX(),this.getY())).isInflammee())
+        if (this.jeu.getEntite(this.getX(),this.getY()) instanceof DalleUnique)
         {
-            Aleatoire a =new Aleatoire();
-            this.setY(a.genereNombreBorne(5));
+            ((DalleUnique) this.jeu.getEntite(this.getX(),this.getY())).incendier();
+            nombreElementChange++;
+
+            if(((DalleUnique) this.jeu.getEntite(this.getX(),this.getY())).isInflammee())
+            {
+                Aleatoire a =new Aleatoire();
+                this.setY(a.genereNombreBorne(5));
+            }
+        }
+
+        if (this.jeu.getEntite(this.getX(),this.getY()) instanceof caseVide)
+        {
+            ((caseVide)  this.jeu.getEntite(this.getX(),this.getY())).setAjoute(true);
+
+            nombreElementChange++;
+
+        }
+
+
+        if (this.jeu.getEntite(this.getX(),this.getY()) instanceof PorteVerouille)
+        {
+            ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setOuverte(false);
+            ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setType(2);
+            ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setBlindage(blindage_porte);
+
+            nombreElementChange++;
         }
     }
 
-    if (this.jeu.getEntite(this.getX(),this.getY()) instanceof caseVide)
-    {
-        ((caseVide)  this.jeu.getEntite(this.getX(),this.getY())).setAjoute(true);
-
-        nombreElementChange++;
-
-    }
-
-
-    if (this.jeu.getEntite(this.getX(),this.getY()) instanceof PorteVerouille)
-    {
-        ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setOuverte(false);
-        ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setType(2);
-        ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setBlindage(difficulte);
-
-
-        nombreElementChange++;
-    }
-
-
-    /*
-    if(this.jeu.getEntite(this.getX(),this.getY()) instanceof CaseNormale)
-    {
-        if(((CaseNormale) this.jeu.getEntite(this.getX(),this.getY())).isJoueurDessus())
+    if(phase_2) {
+        if(nombreElementChange<NOMBRE_CHANGEMENT_MAX-50)
         {
-            System.out.println("Nombre de clées décrémenté");
-            this.jeu.getHeros().getInventaire().decNombreCle();
-            this.jeu.getHeros().getInventaire().decNombreCle();
+            if (this.jeu.getEntite(this.getX(), this.getY()) instanceof CaseNormale) {
+                DalleUnique maCase = new DalleUnique(jeu, this.getX(), this.getY());
+                grilleEntitesStatiques[this.getX()][this.getY()] = maCase;
+                nombreElementChange++;
+            }
+        }else
+        {
+            if (this.jeu.getEntite(this.getX(), this.getY()) instanceof CaseNormale) {
+                caseVide maCase = new caseVide(jeu, this.getX(), this.getY());
+                grilleEntitesStatiques[this.getX()][this.getY()] = maCase;
+                nombreElementChange++;
+            }
+        }
 
         }
     }
-
-     */
-}
 
 };

@@ -102,7 +102,6 @@ public class Jeu extends Observable implements Runnable {
         heros = new Heros(this, 4, 4);
 
         monster=new IA(this,10,1);
-        monster.setMax(30 );
 
         mesMortier =new Mortier[5];
 
