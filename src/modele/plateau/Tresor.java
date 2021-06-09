@@ -12,6 +12,21 @@ public class Tresor implements Elem{
     /* Boolean representant : si tout le contenu du tresor a été recuperé ou pas */
     private boolean contenuRecupere;
 
+    private int nb_cle;
+    private int nb_capsules;
+    private int nb_tesors;
+
+    public int getNb_cle() {
+        return nb_cle;
+    }
+
+    public int getNb_capsules() {
+        return nb_capsules;
+    }
+
+    public int getNb_tesors() {
+        return nb_tesors;
+    }
 
     /*Pile d'élements representant l'ensemble du contenu du tresor */
 
@@ -100,6 +115,7 @@ public class Tresor implements Elem{
                 {
                     Cle nouVCle =(Cle) contenu.get(i);
                     System.out.println("Nombre de cle "+nouVCle.getNombreCle());
+                    nb_cle=nouVCle.getNombreCle();
                     System.lineSeparator();
                     System.out.println("Appuyer sur C pour recupere le contenu");
                     this.ouvert=true;
@@ -110,6 +126,7 @@ public class Tresor implements Elem{
                     {
                         Capsule cap =(Capsule) contenu.get(i);
                         System.out.println("Nombre de capsule "+cap.getNombre());
+                        nb_capsules=cap.getNombre();
                         System.lineSeparator();
                         System.out.println("Appuyer sur C pour recuperer le premier");
                         this.ouvert=true;
@@ -119,6 +136,7 @@ public class Tresor implements Elem{
                         if(contenu.get(i) instanceof Tresor)
                         {
                             System.out.println("-------Petit Tresor compris----");
+                            nb_tesors+=1;
                             ((Tresor) contenu.get(i)).Visionner();
                         }
                 }
@@ -205,6 +223,16 @@ public class Tresor implements Elem{
         this.ouvert=false;
         this.setPoX(x);
         this.setPoY(y);
+
+        ///
+        /*
+        if(jeu.getEntite(x,y) instanceof CaseNormale)
+        {
+            if(!((CaseNormale) jeu.getEntite(x,y)).isOccupee())
+            ((CaseNormale) jeu.getEntite(x,y)).setOccupee(true);
+        }
+
+         */
     }
 
 

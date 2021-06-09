@@ -36,7 +36,7 @@ public class ThreadIA extends Thread{
             this.jeu.monster.setOrientation();
             this.jeu.monster.changer();
 
-            System.out.println("Le nombre de modif : "+this.jeu.monster.getDeb()+" ");
+            //System.out.println("Le nombre de modif : "+this.jeu.monster.getDeb()+" ");
 
 
         } catch (InterruptedException e) {

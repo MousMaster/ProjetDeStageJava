@@ -5,7 +5,7 @@ import Tools.Aleatoire;
 public class MesCasesInterdites {
     private int nomBreCase;
     private Jeu jeu;
-    private caseVide tabCase[];
+    private CaseInterdite tabCase[];
     private boolean tabCasesBool[];
     private EntiteStatique[][] grilleEntitesStatiques ;
 
@@ -18,7 +18,7 @@ public class MesCasesInterdites {
         return this.nomBreCase;
     }
 
-    public caseVide MesCasesInterdites(int i) {
+    public CaseInterdite MesCasesInterdites(int i) {
         return this.tabCase[i];
     }
 
@@ -29,7 +29,7 @@ public class MesCasesInterdites {
         Aleatoire a=new Aleatoire();
 
         this.nomBreCase = 10*jeu.NBRS ;
-        tabCase = new caseVide[nomBreCase];
+        tabCase = new CaseInterdite[nomBreCase];
         tabCasesBool =new boolean[nomBreCase];
 
         for(int i=0;i<nomBreCase;i++) {
@@ -40,14 +40,14 @@ public class MesCasesInterdites {
         for( int z = 0 ; z <jeu.NBRS ; z++){
             for (int i = 0 + z*5 ; i < 5+5*z; i++) {
                 if(!tabCasesBool[i])
-                    tabCase[i] = new caseVide(jeu, a.genereNombreBorne(Salle.SIZE_X-1)+Salle.SIZE_X*z, a.genereNombreBorne(Salle.SIZE_Y-2));
+                    tabCase[i] = new CaseInterdite(jeu, a.genereNombreBorne(Salle.SIZE_X-1)+Salle.SIZE_X*z, a.genereNombreBorne(Salle.SIZE_Y-2));
                 tabCasesBool[i]=true;
             }
         }
     }
 
 
-    public caseVide accees(int i) {
+    public CaseInterdite accees(int i) {
         return this.tabCase[i];
     }
 }

@@ -1,6 +1,6 @@
 package modele.plateau;
 
-public class DalleUnique extends CaseNormale {
+public class DalleInflammable extends CaseNormale {
 
     int posX,posY;
 
@@ -41,11 +41,11 @@ public class DalleUnique extends CaseNormale {
         this.inflammee = true;
     }
 
-    public DalleUnique(Jeu _jeu) {
+    public DalleInflammable(Jeu _jeu) {
         super(_jeu);
         this.inflammee =false;
     }
-    public DalleUnique(Jeu _jeu,int px,int py) {
+    public DalleInflammable(Jeu _jeu, int px, int py) {
         super(_jeu);
         this.inflammee =false;
         this.posX=px;
@@ -80,7 +80,7 @@ public class DalleUnique extends CaseNormale {
                     || (this.isInflammee() && joueur.getX()==this.posX && joueur.getY()==this.getPosY()+1 && joueur.getOrientation()=="Nord")
                     || (this.isInflammee() && joueur.getX()==this.posX && joueur.getY()==this.getPosY()-1 && joueur.getOrientation()=="Sud"))
             {
-               // System.out.println("Etindre feu");
+                // System.out.println("Etindre feu");
                 this.eteindreFeu();
                 joueur.getInventaire().decNombreCapsules();
                 //joueur.getInventaire().afficheInventaire();
@@ -88,7 +88,7 @@ public class DalleUnique extends CaseNormale {
         }else
         {
             if(joueur.getInventaire().getNombreCapsule()==0)
-            System.out.println("Pas de capsule");
+                System.out.println("Pas de capsule");
 
         }
     }

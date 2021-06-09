@@ -177,15 +177,15 @@ public class Heros {
 
     private boolean ifCaseVide(int x, int y) {
 
-        if(jeu.getEntite(x,y) instanceof caseVide)
+        if(jeu.getEntite(x,y) instanceof CaseInterdite)
         {
-            if( ((caseVide) jeu.getEntite(x,y)).isAjoute())
+            if( ((CaseInterdite) jeu.getEntite(x,y)).isAjoute())
             {
                 return false;
             }
         }
         if (x >= 0 && x <= jeu.SIZE_X && y > 0 && y <= jeu.SIZE_Y) {
-            if (jeu.getEntite(x, y) instanceof caseVide) {
+            if (jeu.getEntite(x, y) instanceof CaseInterdite) {
 
 
                 return true;

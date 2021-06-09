@@ -1,9 +1,6 @@
 package modele.plateau;
 
 import Tools.Aleatoire;
-import static modele.plateau.Jeu.NBRS;
-import static modele.plateau.Jeu.SIZE_X;
-import static modele.plateau.Jeu.SIZE_Y;
 
 public class Salle {
 
@@ -96,9 +93,9 @@ public class Salle {
             ((PorteVerouille) e).setPosY(y);
         }
              else {
-                if (e instanceof DalleUnique) {
-                    ((DalleUnique) e).setPosX(x);
-                    ((DalleUnique) e).setPosY(y);
+                if (e instanceof DalleInflammable) {
+                    ((DalleInflammable) e).setPosX(x);
+                    ((DalleInflammable) e).setPosY(y);
                 }
             }
         }

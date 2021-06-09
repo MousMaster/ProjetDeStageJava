@@ -1,6 +1,6 @@
 package VueControleur;
 
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -22,30 +22,23 @@ import modele.plateau.*;
  *  (2) Controleur : écouter les évènements clavier et déclencher le traitement adapté sur le modèle (flèches direction, etc.))
  *
  */
-public class VueControleur extends JFrame implements Observer {
+public class VueInventaire extends JFrame implements Observer {
     private Jeu jeu; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
 
     private int sizeX; // taille de la grille affichée
     private int sizeY;
 
     // icones affichées dans la grille
-    private ImageIcon icoHeroE;
-    private ImageIcon icoHeroN;
-    private ImageIcon icoHeroS;
-    private ImageIcon icoHeroO;
-    private ImageIcon icoCaseNormale;
-    private ImageIcon icoMur;
-    private ImageIcon icoColonne;
-    private ImageIcon icoPorte;
-    private ImageIcon icoPorteNonTraverssable;
-    private ImageIcon icoTresor;
+    private ImageIcon icoHero;
     private ImageIcon icoTresorOuvert;
     private ImageIcon icoCle;
+    private  ImageIcon icoTresor ;
 
-    private ImageIcon icoDalle;
+
+    private ImageIcon icoSaut;
     private ImageIcon icoDalleFermee;
     private ImageIcon icoCapsule;
-    private ImageIcon icoCaseInt;
+    private ImageIcon icoPiece;
 
     private ImageIcon icoMonster;
     private ImageIcon icoCaseVideAjoute;
@@ -58,11 +51,14 @@ public class VueControleur extends JFrame implements Observer {
 
 
 
+
+
+
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
     private JLabel[][] tabJLabel_1;
 
-    public VueControleur(Jeu _jeu) {
+    public VueInventaire(Jeu _jeu) {
         sizeX = jeu.SIZE_X;
         sizeY = _jeu.SIZE_Y;
         jeu = _jeu;
@@ -100,11 +96,11 @@ public class VueControleur extends JFrame implements Observer {
                         if(jeu.getHeros().getInventaire().getNombreCapsule()>3)
                         {
                             System.out.println("Appuyer sur Z pour echanger vos capsuls contre 5 sauts");
-                           if(e.getKeyCode()==KeyEvent.VK_Z)
-                           {
-                               /* extension echanger des capsules contre des sauts en plus */
-                               jeu.accesTreso(jeu.getHeros().getNumTresor()).echanger(jeu.getHeros());
-                           }
+                            if(e.getKeyCode()==KeyEvent.VK_Z)
+                            {
+                                /* extension echanger des capsules contre des sauts en plus */
+                                jeu.accesTreso(jeu.getHeros().getNumTresor()).echanger(jeu.getHeros());
+                            }
                         }
                         jeu.afficheContenuTresor();
 
@@ -123,21 +119,18 @@ public class VueControleur extends JFrame implements Observer {
 
 
     private void chargerLesIcones() {
-        icoHeroE = chargerIcone("Images/PacmanE.png");
-        icoHeroN = chargerIcone("Images/PacmanN.png");
-        icoHeroS = chargerIcone("Images/PacmanS.png");
-        icoHeroO = chargerIcone("Images/PacmanO.png");
-        icoCaseNormale = chargerIcone("Images/Vide.png");
-        icoMur = chargerIcone("Images/Mur.png");
-        icoPorte =chargerIcone("Images/porteOuverte.png");
-        icoPorteNonTraverssable =chargerIcone("Images/porteFerme.png");
-        icoTresor =chargerIcone("Images/tresor.png");
+        icoHero = chargerIcone("Images/PacmanE.png");
+
+
         icoCle =chargerIcone("Images/clee.png");
-        icoDalle = chargerIcone("Images/dalleUnique.png");
+        icoSaut = chargerIcone("Images/saut.png");
         icoDalleFermee = chargerIcone("Images/dalleFermee.png");
         icoCapsule = chargerIcone("Images/capsule.png");
         icoTresorOuvert = chargerIcone("Images/tresorOuvert.png");
-        icoCaseInt = chargerIcone("Images/caseInt.png");
+        icoPiece = chargerIcone("Images/piece.png");
+
+        icoTresor =chargerIcone("Images/tresor.png");
+
 
         icoMonster = chargerIcone("Images/Monster.png");
         icoCaseVideAjoute = chargerIcone("Images/forbiden.png");
@@ -147,6 +140,7 @@ public class VueControleur extends JFrame implements Observer {
         icoMortier = chargerIcone("Images/mortier.png");
 
         icoBalle= chargerIcone("Images/balle.png");
+
     }
 
     private ImageIcon chargerIcone(String urlIcone) {
@@ -164,7 +158,7 @@ public class VueControleur extends JFrame implements Observer {
 
     private void placerLesComposantsGraphiques() {
 
-        setTitle("Roguelike");
+        setTitle("Inventaire");
         setSize(300 * Jeu.NBRS, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
@@ -190,105 +184,35 @@ public class VueControleur extends JFrame implements Observer {
      */
     private void mettreAJourAffichage() {
 
+        tabJLabel[0][0].setIcon(icoHero);
 
-        for (int x = 0; x < sizeX; x++) {
-            for (int y = 0; y < sizeY; y++) {
-                EntiteStatique e = jeu.getEntite(x, y);
-                if (e instanceof Mur) {
-                    tabJLabel[x][y].setIcon(icoMur);
 
-                } else if (e instanceof CaseNormale)
-                {
-                    tabJLabel[x][y].setIcon(icoCaseNormale);
-                }
-                else if (e instanceof PorteVerouille)
-                {
-                    if(((PorteVerouille) e).isOuverte())
-                    {
-                        tabJLabel[x][y].setIcon(icoPorte);
-                    }else
-                        if(((PorteVerouille) e).getType()==2)
-                    {
-                        tabJLabel[x][y].setIcon(icoPorteBlinde);
-                    }
-                    else
-                    {
-                        tabJLabel[x][y].setIcon(icoPorteNonTraverssable);
-                    }
-                }
-                else if (e instanceof DalleInflammable)
-                {
-                    tabJLabel[x][y].setIcon(icoDalle);
-                }
-                else if (e instanceof CaseInterdite)
-                {
-                    CaseInterdite maCase =(CaseInterdite) e;
-
-                    if(!((CaseInterdite) e).isAjoute())
-                    tabJLabel[x][y].setIcon(icoCaseInt);
-
-                    if(((CaseInterdite) e).isAjoute())
-                        tabJLabel[x][y].setIcon(icoCaseVideAjoute);
-                }
-            }
-        }
-
-        /* Affiche les dalles inflammables selon leurs etats */
-        for(int i=0;i<jeu.getNombreDalle();i++)
-        {
-            if(jeu.getMesDalles().accees(i)!=null)
-            {
-                if(!jeu.getMesDalles().accees(i).isInflammee())
-                {
-                    tabJLabel[jeu.getMesDalles().accees(i).getPosX()][jeu.getMesDalles().accees(i).getPosY()].setIcon(icoDalle);
-                }else
-                {
-                    tabJLabel[jeu.getMesDalles().accees(i).getPosX()][jeu.getMesDalles().accees(i).getPosY()].setIcon(icoDalleFermee);
-                }
-            }else
-            {
-                System.out.println("Dalle impossible a afficher");
-            }
-        }
+        tabJLabel[1][1].setIcon(icoCle);
+        tabJLabel[1][2].setIcon(icoPiece);
+        tabJLabel[1][3].setIcon(icoCapsule);
+        tabJLabel[1][4].setIcon(icoSaut);
 
 
 
-        //Affichage du joueur selon son orientation
-
-        if(jeu.getHeros().getOrientation()=="Est")
-        {
-            tabJLabel[jeu.getHeros().getX()][jeu.getHeros().getY()].setIcon(icoHeroE);
-        }
-        if(jeu.getHeros().getOrientation()=="Nord")
-        {
-            tabJLabel[jeu.getHeros().getX()][jeu.getHeros().getY()].setIcon(icoHeroN);
-        }
-        if(jeu.getHeros().getOrientation()=="Ouest")
-        {
-            tabJLabel[jeu.getHeros().getX()][jeu.getHeros().getY()].setIcon(icoHeroO);
-        }
-        if(jeu.getHeros().getOrientation()=="Sud")
-        {
-            tabJLabel[jeu.getHeros().getX()][jeu.getHeros().getY()].setIcon(icoHeroS);
-        }
+        tabJLabel[2][1].setText(" "+jeu.getHeros().getInventaire().getNombreCle());
+        tabJLabel[2][2].setText(" "+jeu.getHeros().getInventaire().getNombrePieces());
+        tabJLabel[2][3].setText(" "+jeu.getHeros().getInventaire().getNombreCapsule());
+        tabJLabel[2][4].setText(" "+jeu.getHeros().getInventaire().getNombreSautRestant());
 
 
-        //Affichage du tresor change selon son etat ouvert ou ferme bleu ou marron
+        tabJLabel[4][0].setIcon(icoTresorOuvert);
 
-            for(int i=0;i<jeu.getNombreTresor();i++)
-            {
-                if(!jeu.accesTreso(i).isOuvert())
-                {
-                    tabJLabel[jeu.accesTreso(i).getPosX()][jeu.accesTreso(i).getPosY()].setIcon(icoTresor);
-                }
-                if(jeu.accesTreso(i).isOuvert() && !jeu.accesTreso(i).getIsCleeRecuperee())
-                {
-                    tabJLabel[jeu.accesTreso(i).getPosX()][jeu.accesTreso(i).getPosY()].setIcon(icoTresorOuvert);
-                }
-            }
-            // Affichage monster
-        if(this.jeu.monster.isVisible())
-     tabJLabel[jeu.monster.getX()][jeu.monster.getY()].setIcon(icoMonster);
+        tabJLabel[5][1].setIcon(icoCle);
+        tabJLabel[5][2].setIcon(icoCapsule);
+        tabJLabel[5][3].setIcon(icoTresor);
+
+        tabJLabel[6][1].setText(" "+jeu.getMesTresors().getNombreCle_tresor_courant());
+        tabJLabel[6][2].setText(" "+jeu.getMesTresors().getNombreCapsule_tresor_courant());
+        tabJLabel[6][3].setText(" "+jeu.getMesTresors().getNombreTresors_sous_tresor_dans_courant());
+
+
+
+
 
 
 

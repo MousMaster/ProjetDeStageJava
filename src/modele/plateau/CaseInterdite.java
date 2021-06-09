@@ -1,7 +1,7 @@
 package modele.plateau;
 
-public class caseVide extends EntiteStatique{
-    public caseVide(Jeu _jeu ) {
+public class CaseInterdite extends EntiteStatique{
+    public CaseInterdite(Jeu _jeu ) {
         super(_jeu);
         System.out.println(this.posX +" "+this.posY);
     }
@@ -10,7 +10,7 @@ public class caseVide extends EntiteStatique{
 
     private boolean ajoute;
 
-/* Setters && Getters */
+    /* Setters && Getters */
     public int getPosX() {
         return posX;
     }
@@ -36,16 +36,15 @@ public class caseVide extends EntiteStatique{
     }
     /*Cpnstructeur */
 
-    public caseVide(Jeu _jeu, int px, int py) {
+    public CaseInterdite(Jeu _jeu, int px, int py) {
         super(_jeu);
         this.posX=px;
         this.posY=py;
     }
 
-/* Redefinition de la methode traverssable toujours non traverssable */
+    /* Redefinition de la methode traverssable toujours non traverssable */
     @Override
     public boolean traversable() {
         return false;
     }
 }
-

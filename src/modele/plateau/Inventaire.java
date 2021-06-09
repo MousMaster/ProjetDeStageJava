@@ -64,7 +64,7 @@ public class Inventaire {
     public void decNombreCle(){ if(this.nombreCle>0) this.nombreCle--;}
     public void decNombreCapsules(){ this.nombreCapsule--;}
 
-    public void afficheInventaire(){
+    public String afficheInventaire(){
         System.out.println("----------Inventaire :-----------");
         System.lineSeparator();
         System.out.println("Cle :"+getNombreCle());
@@ -77,6 +77,9 @@ public class Inventaire {
         System.lineSeparator();
         System.out.println("Pour avoir de l'aide appuyer sur H :"+getNombreSautRestant());
         System.lineSeparator();
+
+        String inventaire= "Cle :"+getNombreCle() + "Capsules :"+getNombreCapsule() +"Pieces :"+getNombrePieces() + "Nombre sauts autorisés :"+getNombreSautRestant();
+        return inventaire;
     }
 
 }

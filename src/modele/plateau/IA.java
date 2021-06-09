@@ -150,21 +150,21 @@ public void changer()
 {
     if(phase_1)
     {
-        if (this.jeu.getEntite(this.getX(),this.getY()) instanceof DalleUnique)
+        if (this.jeu.getEntite(this.getX(),this.getY()) instanceof DalleInflammable)
         {
-            ((DalleUnique) this.jeu.getEntite(this.getX(),this.getY())).incendier();
+            ((DalleInflammable) this.jeu.getEntite(this.getX(),this.getY())).incendier();
             nombreElementChange++;
 
-            if(((DalleUnique) this.jeu.getEntite(this.getX(),this.getY())).isInflammee())
+            if(((DalleInflammable) this.jeu.getEntite(this.getX(),this.getY())).isInflammee())
             {
                 Aleatoire a =new Aleatoire();
                 this.setY(a.genereNombreBorne(5));
             }
         }
 
-        if (this.jeu.getEntite(this.getX(),this.getY()) instanceof caseVide)
+        if (this.jeu.getEntite(this.getX(),this.getY()) instanceof CaseInterdite)
         {
-            ((caseVide)  this.jeu.getEntite(this.getX(),this.getY())).setAjoute(true);
+            ((CaseInterdite)  this.jeu.getEntite(this.getX(),this.getY())).setAjoute(true);
 
             nombreElementChange++;
 
@@ -185,14 +185,14 @@ public void changer()
         if(nombreElementChange<NOMBRE_CHANGEMENT_MAX-50)
         {
             if (this.jeu.getEntite(this.getX(), this.getY()) instanceof CaseNormale) {
-                DalleUnique maCase = new DalleUnique(jeu, this.getX(), this.getY());
+                DalleInflammable maCase = new DalleInflammable(jeu, this.getX(), this.getY());
                 grilleEntitesStatiques[this.getX()][this.getY()] = maCase;
                 nombreElementChange++;
             }
         }else
         {
             if (this.jeu.getEntite(this.getX(), this.getY()) instanceof CaseNormale) {
-                caseVide maCase = new caseVide(jeu, this.getX(), this.getY());
+                CaseInterdite maCase = new CaseInterdite(jeu, this.getX(), this.getY());
                 grilleEntitesStatiques[this.getX()][this.getY()] = maCase;
                 nombreElementChange++;
             }

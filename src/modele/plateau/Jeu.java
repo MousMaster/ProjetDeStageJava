@@ -30,17 +30,10 @@ public class Jeu extends Observable implements Runnable {
 
     public IA monster;
 
-    public Mortier[] getMesMortier() {
-        return mesMortier;
+
+    public MesTresors getMesTresors() {
+        return mesTresors;
     }
-
-    public Mortier acceesMortier(int i)
-    {
-        return mesMortier[i];
-    }
-
-    private Mortier[] mesMortier;
-
 
     private EntiteStatique[][] grilleEntitesStatiques = new EntiteStatique[SIZE_X][SIZE_Y];
 
@@ -103,15 +96,6 @@ public class Jeu extends Observable implements Runnable {
 
         monster=new IA(this,10,1);
 
-        mesMortier =new Mortier[5];
-
-        for(int i=0;i<5;i++)
-        {
-            mesMortier[i]=new Mortier(this);
-            mesMortier[i].setPosX(5+i*2);
-            mesMortier[i].setPosY(3);
-
-        }
 
 
         /*initialise les parametres du joueur */
@@ -166,10 +150,10 @@ public class Jeu extends Observable implements Runnable {
             ((PorteVerouille) e).setPosX(x);
             ((PorteVerouille) e).setPosY(y);
         } else {
-                if(e instanceof DalleUnique)
+                if(e instanceof DalleInflammable)
                 {
-                    ((DalleUnique) e).setPosX(x);
-                    ((DalleUnique) e).setPosY(y);
+                    ((DalleInflammable) e).setPosX(x);
+                    ((DalleInflammable) e).setPosY(y);
                 }
             }
         }

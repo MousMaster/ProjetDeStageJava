@@ -6,6 +6,34 @@ public class MesTresors {
     private Tresor tabTresor[];
     private int nombreTresors;
 
+    private int nombreCle_tresor_courant;
+    private int nombreCapsule_tresor_courant;
+    private int nombreTresors_sous_tresor_dans_courant;
+
+    public int getNombreCle_tresor_courant() {
+        return nombreCle_tresor_courant;
+    }
+
+    public void setNombreCle_tresor_courant(int nombreCle_tresor_courant) {
+        this.nombreCle_tresor_courant = nombreCle_tresor_courant;
+    }
+
+    public int getNombreCapsule_tresor_courant() {
+        return nombreCapsule_tresor_courant;
+    }
+
+    public void setNombreCapsule_tresor_courant(int nombreCapsule_tresor_courant) {
+        this.nombreCapsule_tresor_courant = nombreCapsule_tresor_courant;
+    }
+
+    public int getNombreTresors_sous_tresor_dans_courant() {
+        return nombreTresors_sous_tresor_dans_courant;
+    }
+
+    public void setNombreTresors_sous_tresor_dans_courant(int nombreTresors_sous_tresor_dans_courant) {
+        this.nombreTresors_sous_tresor_dans_courant = nombreTresors_sous_tresor_dans_courant;
+    }
+
     public Jeu getJeu() {
         return jeu;
     }
@@ -75,6 +103,9 @@ public class MesTresors {
                             if (isVoisin(jeu.getHeros(), i, j)) {
                                 jeu.getHeros().setNumTresor(i);
                                 this.accesTresor(k).Visionner();
+                                this.nombreCle_tresor_courant=this.accesTresor(k).getNb_cle();
+                                this.nombreCapsule_tresor_courant=this.accesTresor(k).getNb_capsules();
+                                this.nombreTresors_sous_tresor_dans_courant=this.accesTresor(k).getNb_tesors();
                             }
                         }
                     }

@@ -5,7 +5,7 @@ import Tools.Aleatoire;
 public class MesDalles {
     private int nomBreDalle;
     private Jeu jeu;
-    private DalleUnique tabDalle[];
+    private DalleInflammable tabDalle[];
     private boolean tabDallesBool[];
     private EntiteStatique[][] grilleEntitesStatiques ;
 
@@ -21,7 +21,7 @@ public class MesDalles {
 
     /*Retourne une dalle */
 
-    public DalleUnique accees(int i) {
+    public DalleInflammable accees(int i) {
         return this.tabDalle[i];
     }
 
@@ -33,7 +33,7 @@ public class MesDalles {
         Aleatoire a=new Aleatoire();
 
         this.nomBreDalle = 5*jeu.NBRS ;
-        tabDalle = new DalleUnique[nomBreDalle];
+        tabDalle = new DalleInflammable[nomBreDalle];
         tabDallesBool =new boolean[nomBreDalle];
 
         for(int i=0;i<nomBreDalle;i++) {
@@ -43,7 +43,7 @@ public class MesDalles {
         for( int z = 0 ; z <jeu.NBRS ; z++){
             for (int i = 0 + z*5 ; i < 5+5*z; i++) {
                 if(!tabDallesBool[i])
-                    tabDalle[i] = new DalleUnique(jeu, a.genereNombreBorneMinMax(Salle.SIZE_X*z+Salle.SIZE_X-1,Salle.SIZE_X*z+1),a.genereNombreBorneMinMax(Salle.SIZE_Y-1,1));
+                    tabDalle[i] = new DalleInflammable(jeu, a.genereNombreBorneMinMax(Salle.SIZE_X*z+Salle.SIZE_X-1,Salle.SIZE_X*z+1),a.genereNombreBorneMinMax(Salle.SIZE_Y-1,1));
                 tabDallesBool[i]=true;
             }
         }
@@ -58,9 +58,9 @@ public class MesDalles {
         {
             for(int j=0;j<jeu.getSizeY();j++)
             {
-                if(jeu.getGrilleEntitesStatiques()[i][j] instanceof DalleUnique)
+                if(jeu.getGrilleEntitesStatiques()[i][j] instanceof DalleInflammable)
                 {
-                    ((DalleUnique) jeu.getGrilleEntitesStatiques()[i][j]).inflammeDalle(jeu.getHeros());
+                    ((DalleInflammable) jeu.getGrilleEntitesStatiques()[i][j]).inflammeDalle(jeu.getHeros());
                 }
 
             }
@@ -74,9 +74,9 @@ public class MesDalles {
         {
             for(int j=0;j<jeu.getSizeY();j++)
             {
-                if(jeu.getGrilleEntitesStatiques()[i][j] instanceof DalleUnique)
+                if(jeu.getGrilleEntitesStatiques()[i][j] instanceof DalleInflammable)
                 {
-                    ((DalleUnique) jeu.getGrilleEntitesStatiques()[i][j]).eteintFeuDall(jeu.getHeros());
+                    ((DalleInflammable) jeu.getGrilleEntitesStatiques()[i][j]).eteintFeuDall(jeu.getHeros());
                 }
 
             }

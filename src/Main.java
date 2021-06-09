@@ -1,5 +1,7 @@
 
 import VueControleur.VueControleur;
+import VueControleur.VueInventaire;
+
 import modele.plateau.Jeu;
 
 /*
@@ -15,9 +17,16 @@ public class Main {
         
         VueControleur vc = new VueControleur(jeu);
 
+        VueInventaire vc_ =new VueInventaire(jeu);
+
         jeu.addObserver(vc);
-        
+
+        jeu.addObserver(vc_);
+
         vc.setVisible(true);
+
+        vc_.setVisible(true);
+
         jeu.start();
     }
 }
