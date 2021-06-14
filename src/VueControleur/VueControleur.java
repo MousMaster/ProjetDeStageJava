@@ -298,6 +298,8 @@ public class VueControleur extends JFrame implements Observer {
     public void update(Observable o, Object arg) {
         jeu.enflammeDalles();
 
+        jeu.getMaPartie().gestionPartie();
+
         mettreAJourAffichage();
     }
 }

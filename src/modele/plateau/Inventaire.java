@@ -7,6 +7,16 @@ public class Inventaire {
     private int nombreCle;
     private int nombreCapsule;
 
+    public int getNumPorteDernierementOuverte() {
+        return numPorteDernierementOuverte;
+    }
+
+    public void setNumPorteDernierementOuverte(int numPorteDernierementOuverte) {
+        this.numPorteDernierementOuverte = numPorteDernierementOuverte;
+    }
+
+    private int numPorteDernierementOuverte;
+
 
     /* extension limite nombre saut + contrainte d'avoir un nombre de pieces suffisant pour acheter des capsules
         dans le tresor trouvé

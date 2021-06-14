@@ -3,7 +3,12 @@ package modele.plateau;
 public class CaseNormale extends EntiteStatique {
     public CaseNormale(Jeu _jeu ) { super(_jeu); }
     int posX,posY;
-    boolean traversable;
+
+    public void setTraversable(boolean traversable) {
+        this.traversable = traversable;
+    }
+
+    boolean traversable=true;
 
     private boolean joueurDessus;
 
@@ -44,7 +49,7 @@ public class CaseNormale extends EntiteStatique {
 
     @Override
     public boolean traversable() {
-        return true;
+        return traversable;
     }
 
 }

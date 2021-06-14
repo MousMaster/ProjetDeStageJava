@@ -45,6 +45,8 @@ public class VueInventaire extends JFrame implements Observer {
 
     private ImageIcon icoPorteBlinde;
 
+    private ImageIcon icoPorteNonTraverssable;
+
     private ImageIcon icoMortier;
     private ImageIcon icoBalle;
 
@@ -141,6 +143,8 @@ public class VueInventaire extends JFrame implements Observer {
 
         icoBalle= chargerIcone("Images/balle.png");
 
+        icoPorteNonTraverssable =chargerIcone("Images/porteFerme.png");
+
     }
 
     private ImageIcon chargerIcone(String urlIcone) {
@@ -212,6 +216,33 @@ public class VueInventaire extends JFrame implements Observer {
 
 
 
+        tabJLabel[10][0].setText(" PN ");
+        tabJLabel[10][1].setText(" "+jeu.getHeros().getInventaire().getNumPorteDernierementOuverte());
+
+        tabJLabel[11][0].setText("PA");
+        tabJLabel[12][0].setText("RT");
+        tabJLabel[13][0].setText("IE");
+        tabJLabel[11][1].setText(" "+jeu.getMaPartie().getNiveau());
+
+        for(int x=0;x<jeu.getSizeX();x++)
+            for(int y=0;y<jeu.getSizeY();y++)
+            {
+                if(jeu.getEntite(x,y) instanceof PorteVerouille)
+                {
+                    PorteVerouille p = (PorteVerouille) jeu.getEntite(x,y);
+                    if(p.getType()==2)
+                    {
+                        tabJLabel[8][p.getNumPorte()].setIcon(icoPorteBlinde);
+                        tabJLabel[9][p.getNumPorte()].setText(""+p.getNumPorte());
+                        tabJLabel[10][p.getNumPorte()].setText(""+p.getBlindage());
+                    }else
+                    {
+                        tabJLabel[8][p.getNumPorte()].setIcon(icoPorteNonTraverssable);
+                        tabJLabel[9][p.getNumPorte()].setText(""+p.getNumPorte());
+                        tabJLabel[10][p.getNumPorte()].setText(""+p.getBlindage());
+                    }
+                }
+            }
 
 
 

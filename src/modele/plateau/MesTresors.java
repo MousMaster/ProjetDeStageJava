@@ -86,6 +86,16 @@ public class MesTresors {
                     if (this.accesTresor(k).getPosX() == i && this.accesTresor(k).getPosY() == j) {
                         if (isVoisin(jeu.getHeros(), i, j))
                             this.accesTresor(k).recupererContenuTresor(jeu.getHeros());
+
+                        if(this.accesTresor(i).estVide())
+                        {
+                            if(jeu.getEntite(this.accesTresor(k).getPosX(), this.accesTresor(k).getPosY()) instanceof CaseNormale)
+                            {
+                                ((CaseNormale) jeu.getEntite(this.accesTresor(k).getPosX(), this.accesTresor(k).getPosY())).setTraversable(true);
+
+                            }
+                        }
+
                     }
                 }
 

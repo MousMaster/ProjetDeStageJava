@@ -22,6 +22,25 @@ public class Jeu extends Observable implements Runnable {
     private MesTresors mesTresors;
     private MesDalles mesDalles;
     private MesCasesInterdites interdites;
+    private Salle MesSalles;
+
+    private Partie maPartie;
+
+    public Partie getMaPartie() {
+        return maPartie;
+    }
+
+    public void setMaPartie(Partie maPartie) {
+        this.maPartie = maPartie;
+    }
+
+    public Salle getMesSalles() {
+        return MesSalles;
+    }
+
+    public void setMesSalles(Salle mesSalles) {
+        MesSalles = mesSalles;
+    }
 
     public int nombreElments()
     {
@@ -94,7 +113,7 @@ public class Jeu extends Observable implements Runnable {
 
         heros = new Heros(this, 4, 4);
 
-        monster=new IA(this,10,1);
+        monster=new IA(this,2,2);
 
 
 
@@ -107,9 +126,14 @@ public class Jeu extends Observable implements Runnable {
 
         /*Appel des methodes d'initialisation */
 
+
         initSall();
         initDalles();
         initTresor();
+
+        maPartie= new Partie(this);
+
+
 
         /* Affichage aide a l'utilisateur */
         help();
@@ -183,11 +207,11 @@ public class Jeu extends Observable implements Runnable {
 
     public void initSall()
     {
-        Salle s = new Salle();
-        s.setJeu(this);
-        s.setGrilleEntitesStatiques(this.grilleEntitesStatiques);
-        s.initMur();
-        s.initPorte();
+        MesSalles = new Salle();
+        MesSalles.setJeu(this);
+        MesSalles.setGrilleEntitesStatiques(this.grilleEntitesStatiques);
+        MesSalles.initMur();
+        MesSalles.initPorte();
     }
 
 

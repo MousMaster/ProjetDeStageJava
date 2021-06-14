@@ -40,7 +40,8 @@ public class MesCasesInterdites {
         for( int z = 0 ; z <jeu.NBRS ; z++){
             for (int i = 0 + z*5 ; i < 5+5*z; i++) {
                 if(!tabCasesBool[i])
-                    tabCase[i] = new CaseInterdite(jeu, a.genereNombreBorne(Salle.SIZE_X-1)+Salle.SIZE_X*z, a.genereNombreBorne(Salle.SIZE_Y-2));
+                tabCase[i] = new CaseInterdite(jeu, a.genereNombreBorneMinMax(Salle.SIZE_X*z+Salle.SIZE_X-1,Salle.SIZE_X*z+2),a.genereNombreBorneMinMax(Salle.SIZE_Y-1,1));
+
                 tabCasesBool[i]=true;
             }
         }

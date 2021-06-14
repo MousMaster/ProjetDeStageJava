@@ -143,6 +143,7 @@ public class Tresor implements Elem{
             }
         }else
         {
+
             System.out.println("--------Tresor vide -----");
         }
     }
@@ -194,12 +195,14 @@ public class Tresor implements Elem{
                 if(contenu.empty())
                 {
                     this.contenuRecupere = true;
+
                 }
 
             }
     public boolean getIsCleeRecuperee()
     {
         return contenuRecupere;
+
     }
 
     public void init(Jeu jeu,int numSall)
@@ -225,14 +228,14 @@ public class Tresor implements Elem{
         this.setPoY(y);
 
         ///
-        /*
+
         if(jeu.getEntite(x,y) instanceof CaseNormale)
         {
-            if(!((CaseNormale) jeu.getEntite(x,y)).isOccupee())
-            ((CaseNormale) jeu.getEntite(x,y)).setOccupee(true);
+
+                ((CaseNormale) jeu.getEntite(x,y)).setTraversable(false);
         }
 
-         */
+
     }
 
 

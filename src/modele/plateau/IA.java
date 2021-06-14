@@ -10,7 +10,24 @@ public class IA extends Heros {
     private boolean visible;
 
     private boolean phase_1;
+    private boolean entrePhase;
     private boolean phase_2;
+
+    public boolean isEntrePhase() {
+        return entrePhase;
+    }
+
+    public void setEntrePhase(boolean entrePhase) {
+        this.entrePhase = entrePhase;
+    }
+
+    public int getTemps_pause() {
+        return temps_pause;
+    }
+
+    public void setTemps_pause(int temps_pause) {
+        this.temps_pause = temps_pause;
+    }
 
     private int temps_pause;
 
@@ -56,7 +73,11 @@ public class IA extends Heros {
         return visible;
     }
 
-    public int getDeb() {
+    public void setNombreElementChange(int nombreElementChange) {
+        this.nombreElementChange = nombreElementChange;
+    }
+
+    public int getNomBreDeChangement() {
         return nombreElementChange;
     }
 
@@ -92,18 +113,7 @@ public class IA extends Heros {
         }
     }
 
-    public void deplacer() throws InterruptedException {
-
-        if(phase_1)
-        {
-            temps_pause=100;
-        }else
-        {
-            temps_pause=200;
-        }
-
-        if(phase_1)
-        {
+    private void deplacer_phase_1() throws InterruptedException {
             if(orientation==1)
             {
                 this.setX(this.getX()-1);
@@ -131,57 +141,96 @@ public class IA extends Heros {
                     blindage_porte++;
                 }
             }
-
-        }
-
-        if(phase_2)
-        {
-                Aleatoire a =new Aleatoire();
-                this.setY(a.genereNombreBorne(5));
-                this.setX(a.genereNombreBorne(jeu.getSizeX()-10));
-                Thread.sleep(temps_pause);
-        }
-
     }
 
-
-
-public void changer()
-{
-    if(phase_1)
+    private void deplacer_phase_2()
     {
-        if (this.jeu.getEntite(this.getX(),this.getY()) instanceof DalleInflammable)
+        if(!entrePhase)
         {
-            ((DalleInflammable) this.jeu.getEntite(this.getX(),this.getY())).incendier();
-            nombreElementChange++;
-
-            if(((DalleInflammable) this.jeu.getEntite(this.getX(),this.getY())).isInflammee())
-            {
-                Aleatoire a =new Aleatoire();
-                this.setY(a.genereNombreBorne(5));
-            }
-        }
-
-        if (this.jeu.getEntite(this.getX(),this.getY()) instanceof CaseInterdite)
-        {
-            ((CaseInterdite)  this.jeu.getEntite(this.getX(),this.getY())).setAjoute(true);
-
-            nombreElementChange++;
+            this.setX(1);
+            this.setY(1);
+            entrePhase=true;
 
         }
 
-
-        if (this.jeu.getEntite(this.getX(),this.getY()) instanceof PorteVerouille)
+        if(this.getY()<jeu.getSizeY()-1)
         {
-            ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setOuverte(false);
-            ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setType(2);
-            ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setBlindage(blindage_porte);
-
-            nombreElementChange++;
+            this.setY(this.getY()+1);
         }
+
+        if(this.getY()==jeu.getSizeY()-1)
+        {
+            this.setX(this.getX()+1);
+            this.setY(0);
+        }
+
+        if(this.getY()==jeu.getSizeY()-1 && this.getX()==jeu.getSizeX()-5)
+        {
+            phase_2=false;
+        }
+
     }
 
-    if(phase_2) {
+    public void deplacer() throws InterruptedException {
+        if(phase_1)
+        {
+            deplacer_phase_1();
+        }
+
+        if (phase_2 )
+        {
+            deplacer_phase_2();
+        }
+
+    }
+
+    private void changer_phase_1()
+    {
+            if (this.jeu.getEntite(this.getX(),this.getY()) instanceof DalleInflammable)
+            {
+                ((DalleInflammable) this.jeu.getEntite(this.getX(),this.getY())).incendier();
+                nombreElementChange++;
+
+                if(((DalleInflammable) this.jeu.getEntite(this.getX(),this.getY())).isInflammee())
+                {
+                    Aleatoire a =new Aleatoire();
+                    this.setY(a.genereNombreBorne(5));
+                }
+            }
+
+            if (this.jeu.getEntite(this.getX(),this.getY()) instanceof CaseInterdite)
+            {
+                ((CaseInterdite)  this.jeu.getEntite(this.getX(),this.getY())).setAjoute(true);
+
+                nombreElementChange++;
+
+            }
+
+
+            if (this.jeu.getEntite(this.getX(),this.getY()) instanceof PorteVerouille)
+            {
+                ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setOuverte(false);
+                ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setType(2);
+                ((PorteVerouille)  this.jeu.getEntite(this.getX(),this.getY())).setBlindage(blindage_porte);
+
+                nombreElementChange++;
+            }
+
+    }
+
+
+public void changer() {
+    if (phase_1) {
+        changer_phase_1();
+    }
+
+    if (phase_2) {
+        changer_phase_2();
+    }
+}
+
+private void changer_phase_2()
+{
         if(nombreElementChange<NOMBRE_CHANGEMENT_MAX-50)
         {
             if (this.jeu.getEntite(this.getX(), this.getY()) instanceof CaseNormale) {
@@ -197,8 +246,6 @@ public void changer()
                 nombreElementChange++;
             }
         }
-
-        }
-    }
+}
 
 };

@@ -99,7 +99,13 @@ public class PorteVerouille extends EntiteStatique{
                                 heros.getInventaire().decNombreCle();
                             }
                             heros.getInventaire().decNombreCle();
+                            heros.getInventaire().setNumPorteDernierementOuverte(this.numPorte);
+                            if(this.numPorte==5)
+                            {
+                                jeu.getMesSalles().setDernierePorteOuverte(true);
+                            }
                             this.ouverte = true;
+
             }
         }else
         {

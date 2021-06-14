@@ -8,6 +8,16 @@ public class Salle {
     public static final int SIZE_Y = 7;
     private int NumSalle = 0 ;
 
+    public boolean isDernierePorteOuverte() {
+        return dernierePorteOuverte;
+    }
+
+    public void setDernierePorteOuverte(boolean dernierePorteOuverte) {
+        this.dernierePorteOuverte = dernierePorteOuverte;
+    }
+
+    private boolean dernierePorteOuverte;
+
 
     private EntiteStatique[][] grilleEntitesStatiques = new EntiteStatique[SIZE_X][SIZE_Y];
     private Jeu jeu;
@@ -43,7 +53,7 @@ public class Salle {
         PorteVerouille porte2 =new PorteVerouille(jeu);
         porte2.setPosY(a.genereNombreBorne(5));
         porte2.setPosX(12+12*i);
-        porte2.setNumPorte(this.NumSalle);
+        porte2.setNumPorte(i+1);
         addEntiteStatique(porte2,porte2.getPosX(),porte2.getPosY());
     }}
 

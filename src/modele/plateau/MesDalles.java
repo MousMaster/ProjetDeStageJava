@@ -4,6 +4,17 @@ import Tools.Aleatoire;
 
 public class MesDalles {
     private int nomBreDalle;
+
+    public int getNombreDalleParSalle() {
+        return nombreDalleParSalle;
+    }
+
+    public void setNombreDalleParSalle(int nombreDalleParSalle) {
+        this.nombreDalleParSalle = nombreDalleParSalle;
+    }
+
+    private int nombreDalleParSalle=2;
+
     private Jeu jeu;
     private DalleInflammable tabDalle[];
     private boolean tabDallesBool[];
@@ -32,7 +43,8 @@ public class MesDalles {
 
         Aleatoire a=new Aleatoire();
 
-        this.nomBreDalle = 5*jeu.NBRS ;
+        this.nomBreDalle = nombreDalleParSalle*jeu.NBRS ;
+
         tabDalle = new DalleInflammable[nomBreDalle];
         tabDallesBool =new boolean[nomBreDalle];
 
@@ -41,7 +53,7 @@ public class MesDalles {
         }
         //empeche la superposition des dalles uniques
         for( int z = 0 ; z <jeu.NBRS ; z++){
-            for (int i = 0 + z*5 ; i < 5+5*z; i++) {
+            for (int i = 0 + z*nombreDalleParSalle ; i < nombreDalleParSalle+nombreDalleParSalle*z; i++) {
                 if(!tabDallesBool[i])
                     tabDalle[i] = new DalleInflammable(jeu, a.genereNombreBorneMinMax(Salle.SIZE_X*z+Salle.SIZE_X-1,Salle.SIZE_X*z+1),a.genereNombreBorneMinMax(Salle.SIZE_Y-1,1));
                 tabDallesBool[i]=true;

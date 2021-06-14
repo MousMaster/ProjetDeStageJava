@@ -22,14 +22,16 @@ public class ThreadIA extends Thread{
 
         try {
 
-            if(this.jeu.monster.getDeb()<jeu.nombreElments()) {
+            if(this.jeu.monster.getNomBreDeChangement()<jeu.nombreElments()) {
                 jeu.monster.setPhase_1(true);
                 jeu.monster.setPhase_2(false);
 
+
             }else
             {
-                jeu.monster.setPhase_2(true);
                 jeu.monster.setPhase_1(false);
+                jeu.monster.setPhase_2(true);
+
             }
 
             this.jeu.monster.deplacer();
