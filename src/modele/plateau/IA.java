@@ -5,6 +5,16 @@ import Tools.Aleatoire;
 public class IA extends Heros {
     private Jeu jeu;
 
+    public boolean isMettrePause() {
+        return mettrePause;
+    }
+
+    public void setMettrePause(boolean mettrePause) {
+        this.mettrePause = mettrePause;
+    }
+
+    private boolean mettrePause;
+
     private  int NOMBRE_CHANGEMENT_MAX;
 
     private boolean visible;
@@ -172,12 +182,12 @@ public class IA extends Heros {
     }
 
     public void deplacer() throws InterruptedException {
-        if(phase_1)
+        if(phase_1 &&!mettrePause)
         {
             deplacer_phase_1();
         }
 
-        if (phase_2 )
+        if (phase_2 &&!mettrePause )
         {
             deplacer_phase_2();
         }
@@ -220,7 +230,7 @@ public class IA extends Heros {
 
 
 public void changer() {
-    if (phase_1) {
+    if (phase_1 ) {
         changer_phase_1();
     }
 

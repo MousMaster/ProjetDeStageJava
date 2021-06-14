@@ -2,6 +2,7 @@
 import VueControleur.VueControleur;
 import VueControleur.VueInventaire;
 
+
 import modele.plateau.Jeu;
 
 /*
@@ -26,6 +27,8 @@ public class Main {
         vc.setVisible(true);
 
         vc_.setVisible(true);
+        vc_.setLocation(0,325);
+        
 
         jeu.start();
     }

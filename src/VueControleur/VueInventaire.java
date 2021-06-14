@@ -1,6 +1,8 @@
 package VueControleur;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -22,17 +24,21 @@ import modele.plateau.*;
  *  (2) Controleur : écouter les évènements clavier et déclencher le traitement adapté sur le modèle (flèches direction, etc.))
  *
  */
-public class VueInventaire extends JFrame implements Observer {
+public class VueInventaire extends JFrame implements Observer  {
     private Jeu jeu; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
 
     private int sizeX; // taille de la grille affichée
     private int sizeY;
+
+
+
 
     // icones affichées dans la grille
     private ImageIcon icoHero;
     private ImageIcon icoTresorOuvert;
     private ImageIcon icoCle;
     private  ImageIcon icoTresor ;
+
 
 
     private ImageIcon icoSaut;
@@ -178,7 +184,16 @@ public class VueInventaire extends JFrame implements Observer {
             }
         }
         add(grilleJLabels);
+
+        Clickprogram c =new Clickprogram();
+
     }
+
+
+
+
+
+
 
 
 
@@ -244,10 +259,16 @@ public class VueInventaire extends JFrame implements Observer {
                 }
             }
 
+      //  if(Menu.)
+
+
+
 
 
 
     }
+
+
 
     @Override
     public void update(Observable o, Object arg) {
@@ -255,4 +276,61 @@ public class VueInventaire extends JFrame implements Observer {
 
         mettreAJourAffichage();
     }
+
+
+    class Clickprogram extends JFrame{
+
+        private JButton Relancer;
+        private JButton Pause;
+        private JButton Repprendre;
+
+        public Clickprogram()
+        {
+
+            this.setSize(300,150);
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.setTitle("Menu Du Jeu");
+
+            Clickprogram.Clicklistener click= new Clickprogram.Clicklistener();
+
+            JPanel panel1= new JPanel();
+            Relancer = new JButton ("Relancer");
+            Pause =new JButton("Pause");
+            Repprendre =new JButton("Repprendre");
+
+
+            Relancer.addActionListener(click);
+            Pause.addActionListener(click);
+            Repprendre.addActionListener(click);
+            panel1.add(Relancer);
+            panel1.add(Pause);
+            panel1.add(Repprendre);
+            this.setBounds(0,500,200,100);
+            this.add(panel1);
+            this.setVisible(true);
+        }
+
+        private class Clicklistener implements ActionListener
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                if (e.getSource() == Relancer)
+                {
+                    jeu.relancer();
+                }
+
+                if (e.getSource() == Pause)
+                {
+                    jeu.controleJeu(true);
+                }
+
+                if (e.getSource() == Repprendre)
+                {
+                    jeu.controleJeu(false);
+                }
+            }
+        }
+    }
+
+
 }

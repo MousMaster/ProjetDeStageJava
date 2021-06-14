@@ -294,4 +294,9 @@ public class Jeu extends Observable implements Runnable {
         System.out.println(" R :pour relancer le jeu");
         System.lineSeparator();
     }
+
+    public void controleJeu(boolean b)
+    {
+        monster.setMettrePause(b);
+    }
 }
