@@ -21,6 +21,11 @@ public class Jeu extends Observable implements Runnable {
 
     private MesTresors mesTresors;
     private MesDalles mesDalles;
+
+    public MesCasesInterdites getInterdites() {
+        return interdites;
+    }
+
     private MesCasesInterdites interdites;
     private Salle MesSalles;
 
@@ -128,7 +133,7 @@ public class Jeu extends Observable implements Runnable {
 
 
         initSall();
-        initDalles();
+        initDalles(3,3);
         initTresor();
 
         maPartie= new Partie(this);
@@ -183,13 +188,17 @@ public class Jeu extends Observable implements Runnable {
         }
 
     /* Les methodes d'initialisation */
-    public void initDalles()
+    public void initDalles(int nbDalle,int nbCase)
     {
-        interdites =new MesCasesInterdites(this);
+        interdites =new MesCasesInterdites(this,nbDalle);
+
+        mesDalles= new MesDalles(this,nbCase);
+
+
+
+        mesDalles.initialiser();
         interdites.initialiser();
 
-        mesDalles= new MesDalles(this);
-        mesDalles.initialiser();
 
         for(int i=0;i<mesDalles.getNomBreDalle();i++)
         {
@@ -265,7 +274,32 @@ public class Jeu extends Observable implements Runnable {
                 grilleEntitesStatiques[x][y] =null;
             }
         }
-        this.initialisationDesEntites();
+        this.initSall();
+        this.initTresor();
+        this.initDalles(3,3);
+
+        heros.setX(1);
+        heros.setY(2);
+
+        monster.reset();
+
+    }
+
+    public void recharger(int nbDalle,int nbCase)
+    {
+        System.lineSeparator();
+        System.out.println("Passage niveau superieur");
+        for (int x = 0; x < SIZE_X; x++) {
+            for (int y = 0; y < SIZE_Y; y++) {
+                grilleEntitesStatiques[x][y] =null;
+            }
+        }
+        this.initSall();
+        this.initDalles(nbDalle,nbCase);
+        this.initTresor();
+        this.monster.reset();
+        heros.setX(1);
+        heros.setY(this.getSizeY()-2);
     }
 
 

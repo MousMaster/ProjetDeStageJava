@@ -78,6 +78,7 @@ public class VueControleur extends JFrame implements Observer {
             public void keyPressed(KeyEvent e) {
                 jeu.getHeros().getInventaire().afficheInventaire();
                 //jeu.commentJouer();
+                if(!jeu.monster.isMettrePause())
                 switch(e.getKeyCode()) {  // on regarde quelle touche a été pressée
                     case KeyEvent.VK_LEFT :
                     {
@@ -281,9 +282,10 @@ public class VueControleur extends JFrame implements Observer {
                 {
                     tabJLabel[jeu.accesTreso(i).getPosX()][jeu.accesTreso(i).getPosY()].setIcon(icoTresor);
                 }
-                if(jeu.accesTreso(i).isOuvert() && !jeu.accesTreso(i).getIsCleeRecuperee())
+                if(jeu.accesTreso(i).isOuvert() && !jeu.accesTreso(i).IsContenuReccupere())
                 {
                     tabJLabel[jeu.accesTreso(i).getPosX()][jeu.accesTreso(i).getPosY()].setIcon(icoTresorOuvert);
+
                 }
             }
             // Affichage monster

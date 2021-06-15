@@ -5,6 +5,7 @@ import Tools.Aleatoire;
 public class MesDalles {
     private int nomBreDalle;
 
+
     public int getNombreDalleParSalle() {
         return nombreDalleParSalle;
     }
@@ -13,7 +14,7 @@ public class MesDalles {
         this.nombreDalleParSalle = nombreDalleParSalle;
     }
 
-    private int nombreDalleParSalle=2;
+    private int nombreDalleParSalle;
 
     private Jeu jeu;
     private DalleInflammable tabDalle[];
@@ -21,8 +22,10 @@ public class MesDalles {
     private EntiteStatique[][] grilleEntitesStatiques ;
 
 
-    public MesDalles(Jeu jeu) {
+    public MesDalles(Jeu jeu,int nb) {
         this.jeu = jeu;
+        this.nombreDalleParSalle=nb;
+
     }
 
     public int getNomBreDalle() {
@@ -43,8 +46,8 @@ public class MesDalles {
 
         Aleatoire a=new Aleatoire();
 
-        this.nomBreDalle = nombreDalleParSalle*jeu.NBRS ;
 
+        this.nomBreDalle = nombreDalleParSalle*jeu.NBRS ;
         tabDalle = new DalleInflammable[nomBreDalle];
         tabDallesBool =new boolean[nomBreDalle];
 
@@ -55,7 +58,7 @@ public class MesDalles {
         for( int z = 0 ; z <jeu.NBRS ; z++){
             for (int i = 0 + z*nombreDalleParSalle ; i < nombreDalleParSalle+nombreDalleParSalle*z; i++) {
                 if(!tabDallesBool[i])
-                    tabDalle[i] = new DalleInflammable(jeu, a.genereNombreBorneMinMax(Salle.SIZE_X*z+Salle.SIZE_X-1,Salle.SIZE_X*z+1),a.genereNombreBorneMinMax(Salle.SIZE_Y-1,1));
+                    tabDalle[i] = new DalleInflammable(jeu, a.genereNombreBorneMinMax(Salle.SIZE_X*z+Salle.SIZE_X-2,Salle.SIZE_X*z+2),a.genereNombreBorneMinMax(Salle.SIZE_Y-1,1));
                 tabDallesBool[i]=true;
             }
         }

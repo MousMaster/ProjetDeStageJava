@@ -258,4 +258,13 @@ private void changer_phase_2()
         }
 }
 
+public void reset()
+{
+    this.setX(2);
+    this.setY(2);
+    phase_2=false;
+    phase_1=true;
+    nombreElementChange=0;
+}
+
 };

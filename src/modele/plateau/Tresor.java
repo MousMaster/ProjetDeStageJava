@@ -62,10 +62,6 @@ public class Tresor implements Elem{
         this.posY=p;
     }
 
-    public int getTaille()
-    {
-        return contenu.size();
-    }
 
     public boolean estVide()
     {
@@ -90,6 +86,7 @@ public class Tresor implements Elem{
 
     /* Supprime  element d'indice i du tresor */
     public void supprimeElem(int i){
+
         contenu.remove(i);
     }
 
@@ -199,7 +196,7 @@ public class Tresor implements Elem{
                 }
 
             }
-    public boolean getIsCleeRecuperee()
+    public boolean IsContenuReccupere()
     {
         return contenuRecupere;
 
@@ -216,7 +213,7 @@ public class Tresor implements Elem{
         Tresor tre=new Tresor();
         tre.ajouteElement(c);
 
-        int x=a.genereNombreBorneMinMax(Salle.SIZE_X+Salle.SIZE_X*numSall-1,Salle.SIZE_X+Salle.SIZE_X*(numSall-1)+1);
+        int x=a.genereNombreBorneMinMax(Salle.SIZE_X+Salle.SIZE_X*numSall-2,Salle.SIZE_X+Salle.SIZE_X*(numSall-1)+2);
         int y=a.genereNombreBorneMinMax(Salle.SIZE_Y-1,1);
 
         this.ajouteElement(c);
@@ -228,12 +225,14 @@ public class Tresor implements Elem{
         this.setPoY(y);
 
         ///
-
+/*
         if(jeu.getEntite(x,y) instanceof CaseNormale)
         {
 
                 ((CaseNormale) jeu.getEntite(x,y)).setTraversable(false);
         }
+
+ */
 
 
     }

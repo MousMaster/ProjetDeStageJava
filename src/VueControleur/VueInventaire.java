@@ -302,10 +302,11 @@ public class VueInventaire extends JFrame implements Observer  {
             Relancer.addActionListener(click);
             Pause.addActionListener(click);
             Repprendre.addActionListener(click);
-            panel1.add(Relancer);
             panel1.add(Pause);
             panel1.add(Repprendre);
-            this.setBounds(0,500,200,100);
+            panel1.add(Relancer);
+
+            this.setBounds(150,600,200,150);
             this.add(panel1);
             this.setVisible(true);
         }

@@ -11,6 +11,10 @@ public class Partie {
         this.monJeu =_jeu;
     }
 
+    public void setNiveau(int niveau) {
+        this.niveau = niveau;
+    }
+
     private int niveau=0;
 
     public int getNiveau() {
@@ -20,21 +24,12 @@ public class Partie {
 
     private void changementNiveau()
     {
+
         if(monJeu.getMesSalles().isDernierePorteOuverte())
         {
             niveau++;
-            monJeu.getHeros().setX(1);
-            monJeu.monster.setTemps_pause(monJeu.monster.getTemps_pause()/2);
-            monJeu.getMesSalles().setDernierePorteOuverte(false);
-            //monJeu.getMesDalles().setNomBreDalle(monJeu.getMesDalles().getNomBreDalle()+5);
-
-
-            monJeu.initSall();
-            monJeu.getMesDalles().setNombreDalleParSalle((monJeu.getMesDalles().getNombreDalleParSalle()+2));
-            monJeu.initDalles();
-
-            monJeu.initTresor();
-            monJeu.monster.setNombreElementChange(0);
+            monJeu.recharger(this.niveau*2+monJeu.getMesDalles().getNombreDalleParSalle(),this.niveau*2+monJeu.getInterdites().getNombreCaseInterditeParSalle());
+            monJeu.monster.reset();
         }
     }
 

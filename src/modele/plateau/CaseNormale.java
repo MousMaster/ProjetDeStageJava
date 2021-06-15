@@ -4,6 +4,16 @@ public class CaseNormale extends EntiteStatique {
     public CaseNormale(Jeu _jeu ) { super(_jeu); }
     int posX,posY;
 
+    public boolean isTresorDessus() {
+        return tresorDessus;
+    }
+
+    public void setTresorDessus(boolean tresorDessus) {
+        this.tresorDessus = tresorDessus;
+    }
+
+    private boolean tresorDessus;
+
     public void setTraversable(boolean traversable) {
         this.traversable = traversable;
     }
@@ -49,7 +59,7 @@ public class CaseNormale extends EntiteStatique {
 
     @Override
     public boolean traversable() {
-        return traversable;
+        return !tresorDessus;
     }
 
 }
