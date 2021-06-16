@@ -77,6 +77,36 @@ public class Heros {
         return inventaire;
     }
 
+     private void setOrientation(int orientation) {
+        this.orientation = orientation;
+    }
+
+    public void  changeOrientation(String _orientaion)
+    {
+        if(_orientaion=="Nord")
+        {
+            orientation=1;
+        }
+
+        if(_orientaion=="Sud")
+        {
+            orientation=2;
+        }
+
+        if(_orientaion=="Est")
+        {
+            orientation=3;
+        }
+
+        if(_orientaion=="Ouest")
+        {
+            orientation=4;
+        }
+
+    }
+
+
+
     public String getOrientation() {
         if (orientation == 1) {
             return "Nord";
@@ -103,7 +133,7 @@ public class Heros {
 
     /* Les methodes de deplacement du joueur */
 
-    public void droite() {
+    private void droite() {
         if (traverssable(x + 1, y)) {
                 x++;
             this.setOrientationE();
@@ -122,7 +152,7 @@ public class Heros {
         }
     }
 
-    public void gauche() {
+    private void gauche() {
         if (traverssable(x - 1, y)) {
                 this.setX(x - 1);
                 this.setOrientationO();
@@ -139,7 +169,27 @@ public class Heros {
         }
     }
 
-    public void bas() {
+    public void avancer()
+    {
+        if(this.getOrientation()=="Nord")
+        {
+            haut();
+        }
+        if(this.getOrientation()=="Sud")
+        {
+            bas();
+        }
+        if(this.getOrientation()=="Est")
+        {
+            droite();
+        }
+        if(this.getOrientation()=="Ouest")
+        {
+            gauche();
+        }
+    }
+
+    protected void bas() {
         if (traverssable(x, y + 1)) {
                 this.setY(y + 1);
                 this.setOrientationS();
@@ -155,7 +205,8 @@ public class Heros {
         }
     }
 
-    public void haut() {
+
+    protected void haut() {
         if (traverssable(x, y - 1)) {
                 this.setY(y - 1);
                 this.setOrientationN();
@@ -223,4 +274,19 @@ public class Heros {
     }
 
 
+    public void reset()
+    {
+        this.setX(2);
+        this.setY(jeu.getSizeY()-2);
+        this.inventaire.setNombreCle(0);
+        this.inventaire.setNombreCapsule(0);
+        this.getInventaire().setNombreSautRestant(20);
+    }
+
+    public void reset(int nombreCle,int nombreCapsule,int nomBreSaut)
+    {
+        this.inventaire.setNombreCle(this.inventaire.getNombreCle()-nombreCle);
+        this.inventaire.setNombreCapsule(this.inventaire.getNombreCapsule()-nombreCapsule);
+        this.getInventaire().setNombreSautRestant(this.inventaire.getNombreCapsule()-nombreCapsule-nomBreSaut);
+    }
 }

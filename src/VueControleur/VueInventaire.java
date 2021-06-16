@@ -73,56 +73,6 @@ public class VueInventaire extends JFrame implements Observer  {
 
         chargerLesIcones();
         placerLesComposantsGraphiques();
-        ajouterEcouteurClavier();
-    }
-
-    private void ajouterEcouteurClavier() {
-        addKeyListener(new KeyAdapter() { // new KeyAdapter() { ... } est une instance de classe anonyme, il s'agit d'un objet qui correspond au controleur dans MVC
-            @Override
-            public void keyPressed(KeyEvent e) {
-                jeu.getHeros().getInventaire().afficheInventaire();
-                //jeu.commentJouer();
-                switch(e.getKeyCode()) {  // on regarde quelle touche a été pressée
-                    case KeyEvent.VK_LEFT :
-                    {
-                        jeu.getHeros().gauche();
-                    } break;
-                    case KeyEvent.VK_RIGHT :
-                    {
-                        jeu.getHeros().droite();
-                    }break;
-                    case KeyEvent.VK_DOWN : jeu.getHeros().bas(); break;
-                    case KeyEvent.VK_UP : jeu.getHeros().haut(); break;
-                    case KeyEvent.VK_R:  jeu.relancer(); break;
-                    case KeyEvent.VK_I:  jeu.getHeros().getInventaire().afficheInventaire(); break;
-                    case KeyEvent.VK_O:  jeu.ouvrePorte(); break;
-                    case KeyEvent.VK_H : jeu.help(); break;
-                    case KeyEvent.VK_W : jeu.eteindredalles(); break;
-
-                    case KeyEvent.VK_T:
-                    {
-                        if(jeu.getHeros().getInventaire().getNombreCapsule()>3)
-                        {
-                            System.out.println("Appuyer sur Z pour echanger vos capsuls contre 5 sauts");
-                            if(e.getKeyCode()==KeyEvent.VK_Z)
-                            {
-                                /* extension echanger des capsules contre des sauts en plus */
-                                jeu.accesTreso(jeu.getHeros().getNumTresor()).echanger(jeu.getHeros());
-                            }
-                        }
-                        jeu.afficheContenuTresor();
-
-                    } break;
-
-                    case KeyEvent.VK_C:
-                    {
-                        jeu.recupererContenuTresor();
-                    }break;
-
-
-                }
-            }
-        });
     }
 
 
@@ -203,6 +153,7 @@ public class VueInventaire extends JFrame implements Observer  {
      */
     private void mettreAJourAffichage() {
 
+
         tabJLabel[0][0].setIcon(icoHero);
 
 
@@ -231,13 +182,9 @@ public class VueInventaire extends JFrame implements Observer  {
 
 
 
-        tabJLabel[10][0].setText(" PN ");
-        tabJLabel[10][1].setText(" "+jeu.getHeros().getInventaire().getNumPorteDernierementOuverte());
 
-        tabJLabel[11][0].setText("PA");
-        tabJLabel[12][0].setText("RT");
-        tabJLabel[13][0].setText("IE");
-        tabJLabel[11][1].setText(" "+jeu.getMaPartie().getNiveau());
+
+
 
         for(int x=0;x<jeu.getSizeX();x++)
             for(int y=0;y<jeu.getSizeY();y++)
@@ -258,6 +205,20 @@ public class VueInventaire extends JFrame implements Observer  {
                     }
                 }
             }
+
+
+
+
+            //niveau courant
+        tabJLabel[12][0].setText("N I");
+        tabJLabel[13][0].setText("V E");
+        tabJLabel[14][0].setText("A U");
+        tabJLabel[15][1].setText(" "+jeu.getMaPartie().getNiveau());
+
+
+
+
+        //elements restant avant phase 2
 
       //  if(Menu.)
 
@@ -284,6 +245,7 @@ public class VueInventaire extends JFrame implements Observer  {
         private JButton Pause;
         private JButton Repprendre;
 
+
         public Clickprogram()
         {
 
@@ -297,6 +259,8 @@ public class VueInventaire extends JFrame implements Observer  {
             Relancer = new JButton ("Relancer");
             Pause =new JButton("Pause");
             Repprendre =new JButton("Repprendre");
+
+
 
 
             Relancer.addActionListener(click);

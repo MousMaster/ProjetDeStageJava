@@ -56,7 +56,7 @@ public class MesTresors {
 
     /*Initalise l'enssemble des tresors du jeu */
 
-    public void init() {
+    public void init(int nombreCleMax,int nomCapsuleMax) {
         nombreTresors = 5;
         this.nombreTresors = nombreTresors;
         tabTresor = new Tresor[nombreTresors];
@@ -65,7 +65,7 @@ public class MesTresors {
         }
 
         for (int i = 0; i < nombreTresors; i++) {
-            tabTresor[i].init(jeu, i);
+            tabTresor[i].init(jeu, i,nombreCleMax,nomCapsuleMax);
             tabTresor[i].setOuvert(false);
         }
     }

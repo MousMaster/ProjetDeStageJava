@@ -86,20 +86,22 @@ public class PorteVerouille extends EntiteStatique{
     public void ouvrir(Heros heros) {
         Voisinage voisin =new Voisinage(jeu.getSizeY());
 
-        if(heros.getInventaire().getNombreCle()>this.blindage)
+        if(heros.getInventaire().getNombreCle()>=this.blindage)
         {
             if (voisin.voisinJouerPorte(heros, this) && heros.getInventaire().getNombreCle() > 0) {
                             System.out.println("Ouverture porte");
                             System.out.println(" " + this.getNumPorte());
-                            //heros.getInventaire().setNombreCapsule(0);
+
                             heros.getInventaire().incNombrePiece(2);
                             heros.getInventaire().decNombreSaut(blindage);
+
                             if(this.type==2)
                             {
                                 heros.getInventaire().decNombreCle();
                             }
                             heros.getInventaire().decNombreCle();
                             heros.getInventaire().setNumPorteDernierementOuverte(this.numPorte);
+
                             if(this.numPorte==5)
                             {
                                 jeu.getMesSalles().setDernierePorteOuverte(true);

@@ -202,13 +202,13 @@ public class Tresor implements Elem{
 
     }
 
-    public void init(Jeu jeu,int numSall)
+    public void init(Jeu jeu,int numSall,int nombreCleMax,int nombreCapsuleMax)
     {
         Aleatoire a=new Aleatoire();
         Cle c =new Cle();
-        c.setNombreCle(a.genereNombreBorneMinMax(3,1));
+        c.setNombreCle(1);
         Capsule cap =new Capsule();
-        cap.setNombre(a.genereNombreBorneMinMax(3,1));
+        cap.setNombre(a.genereNombreBorneMinMax(nombreCapsuleMax,nombreCleMax-3));
 
         Tresor tre=new Tresor();
         tre.ajouteElement(c);
@@ -225,14 +225,14 @@ public class Tresor implements Elem{
         this.setPoY(y);
 
         ///
-/*
+
         if(jeu.getEntite(x,y) instanceof CaseNormale)
         {
 
                 ((CaseNormale) jeu.getEntite(x,y)).setTraversable(false);
         }
 
- */
+
 
 
     }

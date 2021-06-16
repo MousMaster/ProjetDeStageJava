@@ -15,7 +15,7 @@ public class IA extends Heros {
 
     private boolean mettrePause;
 
-    private  int NOMBRE_CHANGEMENT_MAX;
+    public   int NOMBRE_CHANGEMENT_MAX;
 
     private boolean visible;
 
@@ -123,6 +123,17 @@ public class IA extends Heros {
         }
     }
 
+    private void heroDetector()
+    {
+        if(this.getY()==jeu.getHeros().getY())
+        {
+            if(this.getX()==jeu.getHeros().getX())
+            {
+                jeu.getHeros().reset(0,0,0);
+            }
+        }
+    }
+
     private void deplacer_phase_1() throws InterruptedException {
             if(orientation==1)
             {
@@ -185,11 +196,13 @@ public class IA extends Heros {
         if(phase_1 &&!mettrePause)
         {
             deplacer_phase_1();
+            heroDetector();
         }
 
         if (phase_2 &&!mettrePause )
         {
             deplacer_phase_2();
+            heroDetector();
         }
 
     }
@@ -260,8 +273,9 @@ private void changer_phase_2()
 
 public void reset()
 {
-    this.setX(2);
-    this.setY(2);
+    this.getInventaire().setNombreSautRestant(20);
+    this.getInventaire().setNombreCle(0);
+    this.getInventaire().setNombreCapsule(0);
     phase_2=false;
     phase_1=true;
     nombreElementChange=0;

@@ -127,14 +127,14 @@ public class Jeu extends Observable implements Runnable {
         heros.getInventaire().setNombreCle(0);
         heros.getInventaire().setNombrePieces(1);
         heros.getInventaire().setNombreSautRestant(20);
-        heros.getInventaire().afficheInventaire();
+
 
         /*Appel des methodes d'initialisation */
 
 
         initSall();
         initDalles(3,3);
-        initTresor();
+        initTresor(1,10);
 
         maPartie= new Partie(this);
 
@@ -207,11 +207,11 @@ public class Jeu extends Observable implements Runnable {
         }
     }
 
-    public void initTresor()
+    public void initTresor(int nomBreCleMax,int nombreCapusleMax)
     {
         mesTresors = new MesTresors();
         mesTresors.setJeu(this);
-        mesTresors.init();
+        mesTresors.init(nomBreCleMax,nombreCapusleMax);
     }
 
     public void initSall()
@@ -275,17 +275,16 @@ public class Jeu extends Observable implements Runnable {
             }
         }
         this.initSall();
-        this.initTresor();
+        this.initTresor(3,10);
         this.initDalles(3,3);
 
-        heros.setX(1);
-        heros.setY(2);
 
+        heros.reset();
+        maPartie.setNiveau(0);
         monster.reset();
-
     }
 
-    public void recharger(int nbDalle,int nbCase)
+    public void recharger(int nbDalle,int nbCase,int nomBreCleMax,int nomBreCapsule)
     {
         System.lineSeparator();
         System.out.println("Passage niveau superieur");
@@ -296,10 +295,8 @@ public class Jeu extends Observable implements Runnable {
         }
         this.initSall();
         this.initDalles(nbDalle,nbCase);
-        this.initTresor();
+        this.initTresor(nomBreCleMax,nomBreCapsule);
         this.monster.reset();
-        heros.setX(1);
-        heros.setY(this.getSizeY()-2);
     }
 
 
@@ -313,19 +310,17 @@ public class Jeu extends Observable implements Runnable {
     {
         System.out.println("---------Les commandes-----------");
         System.lineSeparator();
-        System.out.println("Fleches : dirrige le prof");
+        System.out.println("Fleches : change orientation du joueur");
         System.lineSeparator();
-        System.out.println(" I :affiche inventaire");
+        System.out.println("Espace : fait avancer le joueur");
         System.lineSeparator();
         System.out.println(" T :affiche contenu coffre");
         System.lineSeparator();
         System.out.println(" C : recupere contenu si nombre piece > 3 on recupere les capsules en +");
         System.lineSeparator();
-        System.out.println(" O :ouvre porte si nombre cle > 0");
+        System.out.println(" O :ouvre porte si nombre cle ");
         System.lineSeparator();
         System.out.println(" W :Etient le feu si nombre capsule > 0");
-        System.lineSeparator();
-        System.out.println(" R :pour relancer le jeu");
         System.lineSeparator();
     }
 

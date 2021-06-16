@@ -11,6 +11,9 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 
@@ -72,27 +75,40 @@ public class VueControleur extends JFrame implements Observer {
         ajouterEcouteurClavier();
     }
 
+    public void playSound() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("Sons/verouille_porte.mp3").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch(Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
+
+
     private void ajouterEcouteurClavier() {
         addKeyListener(new KeyAdapter() { // new KeyAdapter() { ... } est une instance de classe anonyme, il s'agit d'un objet qui correspond au controleur dans MVC
             @Override
             public void keyPressed(KeyEvent e) {
-                jeu.getHeros().getInventaire().afficheInventaire();
-                //jeu.commentJouer();
+                jeu.help();
                 if(!jeu.monster.isMettrePause())
                 switch(e.getKeyCode()) {  // on regarde quelle touche a été pressée
                     case KeyEvent.VK_LEFT :
                     {
-                        jeu.getHeros().gauche();
-                    } break;
+                        jeu.getHeros().changeOrientation("Ouest"); break;
+                    }
                     case KeyEvent.VK_RIGHT :
                     {
-                        jeu.getHeros().droite();
-                    }break;
-                    case KeyEvent.VK_DOWN : jeu.getHeros().bas(); break;
-                    case KeyEvent.VK_UP : jeu.getHeros().haut(); break;
-                    case KeyEvent.VK_R:  jeu.relancer(); break;
+                        jeu.getHeros().changeOrientation("Est"); break;
+                    }
+                    case KeyEvent.VK_DOWN : jeu.getHeros().changeOrientation("Sud"); break;
+                    case KeyEvent.VK_SPACE: jeu.getHeros().avancer(); break;
+                    case KeyEvent.VK_UP : jeu.getHeros().changeOrientation("Nord"); break;
                     case KeyEvent.VK_I:  jeu.getHeros().getInventaire().afficheInventaire(); break;
-                    case KeyEvent.VK_O:  jeu.ouvrePorte(); break;
+                    case KeyEvent.VK_O:  jeu.ouvrePorte();
+                        playSound(); break;
                     case KeyEvent.VK_H : jeu.help(); break;
                     case KeyEvent.VK_W : jeu.eteindredalles(); break;
 
